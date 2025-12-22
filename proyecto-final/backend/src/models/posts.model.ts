@@ -1,7 +1,7 @@
 // Posts.js
-import { DataTypes } from "sequelize";
+import { DataTypes,Sequelize } from "sequelize";
 
-export default (sequelize) => {
+export default (sequelize: Sequelize) => {
   return sequelize.define(
     "Posts",
     {

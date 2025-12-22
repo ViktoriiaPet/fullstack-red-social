@@ -1,6 +1,6 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 
-export default (sequelize) => {
+export default (sequelize: Sequelize) => {
   const Permission = sequelize.define(
     'Permission',
     {
