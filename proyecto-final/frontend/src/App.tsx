@@ -8,7 +8,7 @@ import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 import EventPage from "./pages/EventPage"
 import CreateEventPage from "./pages/CreateEventPage"
-import ProfilePage from "./pages/ProfilePage"
+import ProfilePage from "./pages/ProfilePage.jsx"
 import FAQPage from "./pages/FAQPage"
 /* import ChatPage from "./pages/ChatPage" */
 import Footer from "./components/Footer"
