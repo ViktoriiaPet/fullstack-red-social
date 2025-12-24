@@ -1,5 +1,35 @@
 import { DataTypes, Sequelize } from "sequelize";
 
+export interface UserAttributes {
+  id: number;
+  UUID: string;
+  username: string;
+  nombre?: string;
+  lastName?: string;
+  email: string;
+  telefono?: string;
+  clave: string;
+  role: string;
+  avatar_url?: string;
+  aboutMe?: string;
+  address?: string;
+  birthday?: Date;
+  documentType?: string;
+  documentNumber?: string;
+  reminders?: boolean;
+  news_subscription?: boolean;
+  banned?: boolean;
+  banned_date?: Date;
+  bannedUntilDate?: Date;
+  confirmation_token?: string;
+  token: string;
+  confirmation_ok?: boolean;
+  deleted?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
+}
+
 export default (sequelize: Sequelize) => {
   const Users = sequelize.define(
     "Users",

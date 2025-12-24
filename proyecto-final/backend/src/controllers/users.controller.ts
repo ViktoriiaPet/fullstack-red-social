@@ -7,6 +7,11 @@ import dotenv from "dotenv";
 import { v4 } from "uuid";
 import token from '../common/tokens.controller.js'
 import { sendConfirmationLink} from '../common/email.controller.js'
+import { Request,  Response } from "express";
+import { UserAttributes } from "../models/users.model.js";
+import { Model } from "sequelize";
+export type UserInstance = Model<UserAttributes> & UserAttributes;
+
 
 const Users = db.Users;
 const router = express.Router();
@@ -19,7 +24,7 @@ const schema = Joi.object({
   password: Joi.string().min(5).required(),
 });
 
-export const loginUser = async (req, res) => {
+export const loginUser = async (req:Request, res:Response) => {
    try {
     const userEmail = req.body.username.includes('@') ? req.body.username : null
     const userUsername = !userEmail ? req.body.username : null
@@ -31,9 +36,9 @@ export const loginUser = async (req, res) => {
 
     if (userEmail) {
       req.body.email = userEmail
-      usuario = await Users.findOne({ where: { email: req.body.email } });
+      usuario = await Users.findOne({ where: { email: req.body.email } }) as unknown as UserAttributes;
     } else {
-      usuario = await Users.findOne({ where: { username: userUsername } });
+      usuario = await Users.findOne({ where: { username: userUsername } }) as unknown as UserAttributes;
     }
 
     if (!usuario) {
@@ -57,32 +62,35 @@ export const loginUser = async (req, res) => {
     );
 
     res.json({ mensaje: "Login exitoso",username: usuario.username, token });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message, code: "SERVER_ERROR" });
+  } catch (e) {
+    console.error(e); 
+    const error = e as Error;
+    res.status(500).json({ error: error.message, code: "SERVER_ERROR" });
   }
 }
 
-export const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req:Request, res:Response) => {
   try {
     const data = await Users.findAll();
     res.json(data);
-  } catch (error) {
+  } catch (e) {
+    const error = e as Error;
     res.status(500).json({ error: error.message });
   }
 };
 
-export const getUserById = async (req, res) => {
+export const getUserById = async (req:Request, res:Response) => {
   try {
     const data = await Users.findByPk(req.params.id);
     if (!data) return res.status(404).json({ error: "User not found" });
     res.json(data);
-  } catch (error) {
+  } catch (e) {
+    const error = e as Error;
     res.status(500).json({ error: error.message });
   }
 };
 
-export const createUser = async (req, res) => {
+export const createUser = async (req:Request, res:Response) => {
    try {
     const { error } = schema.validate(req.body);
     if (error)
@@ -92,11 +100,11 @@ export const createUser = async (req, res) => {
         details: error.details,
       });
 
-    const existeEmail = await Users.findOne({ where: { email: req.body.email } });
+    const existeEmail = await Users.findOne({ where: { email: req.body.email } }) as unknown as UserAttributes;;
     if (existeEmail)
       return res.status(409).json({ error: "Email ya registrado", code: "EMAIL_TAKEN" });
 
-    const existe = await Users.findOne({ where: { username: req.body.username } });
+    const existe = await Users.findOne({ where: { username: req.body.username } }) as unknown as UserAttributes;;
     if (existe)
       return res.status(409).json({ error: "Username ya registrado", code: "USERNAME_TAKEN" });
 
@@ -112,7 +120,7 @@ export const createUser = async (req, res) => {
       role: req.body.role || "user", // por defecto 'user'
       confirmation_token: email_token,
       confirmation_ok: false
-    });
+    })  as unknown as UserAttributes;;
 
     sendConfirmationLink({
       to: req.body.email,
@@ -123,79 +131,86 @@ export const createUser = async (req, res) => {
       email: usuario.email,
       createdAt: usuario.createdAt,
       updatedAt: usuario.updatedAt,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message, code: "SERVER_ERROR" });
+    })
+  } catch (e) {
+    console.error(e);
+    const error = e as Error;
+    res.status(500).json({ error: error.message, code: "SERVER_ERROR" });
   }
 };
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req:Request, res:Response) => {
   try {
     const data = await Users.findByPk(req.params.id);
     if (!data) return res.status(404).json({ error: "User not found" });
 
     await data.update(req.body);
     res.json(data);
-  } catch (error) {
+  } catch (e) {
+    const error = e as Error;
     res.status(500).json({ error: error.message });
   }
 };
 
 // Hard delete del User
-export const hardDeleteUser = async (req, res) => {
+export const hardDeleteUser = async (req:Request, res:Response) => {
   try {
     const row = await Users.findByPk(req.params.id);
     if (!row) return res.status(404).json({ error: "User not found" });
     await row.destroy();
     res.json({ message: "User removed (hard delete)" });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
 
 //Soft Delete
-export const softDeleteUser = async (req, res) => {
+export const softDeleteUser = async (req:Request, res:Response) => {
   try {
     const data = await Users.findByPk(req.params.id);
     if (!data) return res.status(404).json({ error: "User not found" });
 
     await data.update({ deleted: true, deleted_at: new Date() });
     res.json({ message: "User deleted logically" });
-  } catch (error) {
+  } catch (e) {
+    const error = e as Error;
     res.status(500).json({ error: error.message });
   }
 };
 
 //Confirm User
 //Link de Confirmacion de que un usuario ha recibido el token
-export const confirmTokenUser  = async (req, res) => {
+export const confirmTokenUser  = async (req:Request, res:Response) => {
   try {
-    const data = await Users.findOne({where: { email: req.query.email } });
+    const data = await Users.findOne({where: { email: req.query.email } }) as UserInstance;
     if (!data) return res.status(404).json({ error: "User not found" });
 
     if (data.token !== data.confirmation_token) res.status(404).json({ error: "User not valid" });
 
     await data.update({ confirmation_ok: true, confirmation_token: '' });
     res.json({ message: "New user confirmed" });
-  } catch (error) {
+  } catch (e) {
+    const error = e as Error;
     res.status(500).json({ error: error.message });
   }
 };
 
 // QUE PINTA ESTO AQUI????
 // GET para comprobar si un usuario existe por email
-router.get("/exists/:email", async (req, res) => {
+router.get("/exists/:email", async (req:Request, res:Response) => {
   try {
     const { email } = req.params;
 
-    const usuario = await Users.findOne({ where: { email } });
+    const usuario = await Users.findOne({ where: { email } }) as unknown as UserAttributes;
 
     if (usuario) {
       return res.json({ existe: true, id: usuario.id, nombre: usuario.nombre,  eliminado: !!usuario.deletedAt });
     } else {
       return res.json({ existe: false });
     }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message });
   }
 });

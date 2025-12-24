@@ -1,56 +1,69 @@
 import db from "../models/index.js";
+import { Request,  Response } from "express";
 const Relations = db.Relations;
 
-export const getAllRelations = async (req, res) => {
+export const getAllRelations = async (req:Request, res:Response) => {
   try {
     res.json(await Relations.findAll());
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
-export const getRelationById = async (req, res) => {
+export const getRelationById = async (req:Request, res:Response) => {
   try {
     const r = await Relations.findByPk(req.params.id);
     if (!r) return res.status(404).json({ error: "Relation not found" });
     res.json(r);
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
-export const createRelation = async (req, res) => {
+export const createRelation = async (req:Request, res:Response) => {
   try {
     const r = await Relations.create(req.body);
     res.status(201).json(r);
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
-export const updateRelation = async (req, res) => {
+export const updateRelation = async (req:Request, res:Response) => {
   try {
     const r = await Relations.findByPk(req.params.id);
     if (!r) return res.status(404).json({ error: "Relation not found" });
     await r.update(req.body);
     res.json(r);
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
 
 // Hard delete de la relación
-export const hardDeleteRelation = async (req, res) => {
+export const hardDeleteRelation = async (req:Request, res:Response) => {
   try {
     const row = await Relations.findByPk(req.params.id);
     if (!row) return res.status(404).json({ error: "Relation not found" });
     await row.destroy();
     res.json({ message: "Relation removed (hard delete)" });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
 
 //Soft Delete
-export const softDeleteRelation = async (req, res) => {
+export const softDeleteRelation = async (req:Request, res:Response) => {
   try {
     const r = await Relations.findByPk(req.params.id);
     if (!r) return res.status(404).json({ error: "Relation not found" });
     await r.update({ deleted: true, deletedAt: new Date() });
     res.json({ message: "Relation deleted logically" });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
 
@@ -66,7 +79,7 @@ export const softDeleteRelation = async (req, res) => {
 //  * Obtiene todas las relations
 //  * GET /api/v1/relations
 // */
-// async function getAll(req, res) {
+// async function getAll(req:Request, res:Response) {
 //     try {
 //         const filters = {}; //TODO: DEFINIR
 //         // if (req.query.completed)
@@ -102,7 +115,7 @@ export const softDeleteRelation = async (req, res) => {
 //  * Obtener una tarea por ID
 //  * GET /api/v1/relation/:id
 //  */
-// async function getById(req, res) {
+// async function getById(req:Request, res:Response) {
 //     const id = req.params.id;
 //     try {
 //         const relation = await relationModel.getById(id);
@@ -135,7 +148,7 @@ export const softDeleteRelation = async (req, res) => {
 //  * Crear nueva relacion
 //  * GET /api/v1/relation
 // */
-// async function create(req, res) {
+// async function create(req:Request, res:Response) {
 //     try {
 //         // validacion con Joi
 //         const { error } = createRelationSchema.validate(req.body);
@@ -169,7 +182,7 @@ export const softDeleteRelation = async (req, res) => {
 //  * Actualizar una Relation por ID
 //  * PUT /api/v1/relation/:id
 //  */
-// async function update(req, res) {
+// async function update(req:Request, res:Response) {
 //     const { error } = createRelationSchema.validate(req.body);
 //     if (error) {
 //         return res.status(400).json({
@@ -211,7 +224,7 @@ export const softDeleteRelation = async (req, res) => {
 //  * Eliminar físicamente una Relación por ID (Hard Delete)
 //  * DELETE /api/v1/relation/harddelete/:id
 //  */
-// async function hardDelete(req, res) {
+// async function hardDelete(req:Request, res:Response) {
 //     const id = req.params.id
 
 //     if (!relationModel.existsID(id)) {
@@ -242,7 +255,7 @@ export const softDeleteRelation = async (req, res) => {
 //  * Eliminar una Relación por ID (Soft Delete)
 //  * DELETE /api/v1/relation/:id
 //  */
-// async function softDelete(req, res) {
+// async function softDelete(req:Request, res:Response) {
 //     const id = req.params.id
 
 //     if (!relationModel.existsID(id)) {
@@ -269,7 +282,7 @@ export const softDeleteRelation = async (req, res) => {
 //     }
 // }
 
-// module.exports = {
+// modulerror.exports = {
 //     getAll,
 //     getById,
 //     create,

@@ -1,8 +1,9 @@
 import db from "../models/index.js";
+import { Request,  Response } from "express";
 const Comments = db.Comments;
 
 // Obtener todos los comentarios (incluye eliminados si se solicita)
-export const getAllComments = async (req, res) => {
+export const getAllComments = async (req:Request, res:Response) => {
   try {
     const includeDeleted = req.query.includeDeleted === "true";
 
@@ -18,7 +19,7 @@ export const getAllComments = async (req, res) => {
 };
 
 // Obtener un comentario por ID
-export const getCommentById = async (req, res) => {
+export const getCommentById = async (req:Request, res:Response) => {
   try {
     const comment = await Comments.findByPk(req.params.idComment);
 
@@ -34,7 +35,7 @@ export const getCommentById = async (req, res) => {
 };
 
 // Crear un comentario
-export const createComment = async (req, res) => {
+export const createComment = async (req:Request, res:Response) => {
   try {
     const { content } = req.body;
 
@@ -48,7 +49,7 @@ export const createComment = async (req, res) => {
 };
 
 // Actualizar un comentario
-export const updateComment = async (req, res) => {
+export const updateComment = async (req:Request, res:Response) => {
   try {
     const { content } = req.body;
 
@@ -58,7 +59,7 @@ export const updateComment = async (req, res) => {
       return res.status(404).json({ error: "Comment not found" });
     }
 
-    await Comments.update({ content });
+    await comment.update({ content });
 
     res.json(comment);
   } catch (error) {
@@ -68,7 +69,7 @@ export const updateComment = async (req, res) => {
 };
 
 // Soft delete del comentario
-export const softDeleteComment = async (req, res) => {
+export const softDeleteComment = async (req:Request, res:Response) => {
   try {
     const comment = await Comments.findByPk(req.params.idComment);
 
@@ -86,18 +87,20 @@ export const softDeleteComment = async (req, res) => {
 };
 
 // Hard delete del comentario
-export const hardDeleteComment = async (req, res) => {
+export const hardDeleteComment = async (req:Request, res:Response) => {
   try {
     const row = await Comments.findByPk(req.params.id);
     if (!row) return res.status(404).json({ error: "FAQ not found" });
     await row.destroy();
     res.json({ message: "Comment removed (hard delete)" });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) { 
+    const error = e as Error;
+    res.status(500).json({ error: error.message }); }
 };
 
 
 // Restaurar comentario eliminado (soft delete)
-export const restoreComment = async (req, res) => {
+export const restoreComment = async (req:Request, res:Response) => {
   try {
     const comment = await Comments.findByPk(req.params.idComment, {
       paranoid: false
