@@ -16,7 +16,7 @@
     "allowJs": true,
     "checkJs": false,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
     
   },
   "include": ["src/**/*"],
