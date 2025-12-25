@@ -124,7 +124,7 @@ export const createUser = async (req:Request, res:Response) => {
 
     sendConfirmationLink({
       to: req.body.email,
-    },token)
+    },email_token)
 
     res.status(201).json({
       username: usuario.username,
