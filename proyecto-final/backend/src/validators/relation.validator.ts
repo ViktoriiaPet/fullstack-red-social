@@ -1,4 +1,3 @@
-//const Joi = redquire('joi');
 import Joi from 'joi';
 
 const createRelationSchema = Joi.object({

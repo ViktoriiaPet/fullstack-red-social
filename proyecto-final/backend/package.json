@@ -48,5 +48,11 @@
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
-  }
+  },
+  "eslintIgnore": [
+  "eslint.config.ts",
+  "prettier.config.ts",
+  "node_modules",
+  "dist"
+]
 }

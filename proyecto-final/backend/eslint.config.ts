@@ -5,6 +5,14 @@ import tseslint from "@typescript-eslint/eslint-plugin";
 
 export default [
   js.configs.recommended,
+    {
+    ignores: [
+      "eslint.config.ts",
+      "prettier.config.ts",
+      "node_modules",
+      "dist"
+    ]
+  },
   {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
@@ -21,7 +29,7 @@ export default [
       parser: tsParser,
       parserOptions: {
         sourceType: "module",
-        project: "./tsconfig.json",
+        project: "./tsconfig.eslint.json",
       },
       globals: globals.node,
     },
