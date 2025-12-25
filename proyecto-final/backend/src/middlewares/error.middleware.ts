@@ -1,7 +1,9 @@
 /*
 * Manejador de rutas no encontradas 404
 */
-export const notFound = ((req, res, next) => {
+
+import { Request,Response,NextFunction } from "express";
+export const notFound = ((req: Request, res:Response, next:NextFunction) => {
     res.status(404).json({
         success: false,
         message: "Error 404 - Not Found"
@@ -10,5 +12,3 @@ export const notFound = ((req, res, next) => {
 });
 
 export default notFound;
-
-//module.exports { notFound };
