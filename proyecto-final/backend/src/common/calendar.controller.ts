@@ -7,7 +7,7 @@
 
 import { ICalendar } from 'icalendar.js';
 
-export async function readCalendar(url)
+export async function readCalendar(url:string)
 {
     //const location = new URL("sample.ics", import.meta.url);
     //const payload = await readFile(location);

@@ -15,6 +15,14 @@ import config from '../config/config.js'
 //   },
 // });
 
+interface MailData {
+    from?: string;
+    to: string;
+    subject?: string;
+    text?: string;
+    html?: string;
+}
+
 const transporter = nodemailer.createTransport({
   host: config.email_host,
   port: config.email_port,
@@ -38,7 +46,7 @@ const transporter = nodemailer.createTransport({
 //   console.log("Message sent:", info.messageId);
 // })();
 
-export async function sendMail (mailData) {
+export async function sendMail (mailData: MailData) {
   return await transporter.sendMail({
     from: mailData.from,
     to: mailData.to,
@@ -48,7 +56,7 @@ export async function sendMail (mailData) {
   });
 };
 
-export async function sendConfirmationLink(mailData,token)
+export async function sendConfirmationLink(mailData: MailData,token: string)
 {
     const urlConfirm = config.email_link_confirm + `email=${mailData.to}&token=${token}`
 
