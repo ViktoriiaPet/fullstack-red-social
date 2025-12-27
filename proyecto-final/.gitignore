@@ -10,3 +10,5 @@ build/
 # Env
 .env
 .env.local
+.env_Armand
+.env_email
