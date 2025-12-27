@@ -58,7 +58,7 @@ export async function sendMail (mailData: MailData) {
 
 export async function sendConfirmationLink(mailData: MailData,token: string)
 {
-    const urlConfirm = config.email_link_confirm + `email=${mailData.to}&token=${token}`
+    const urlConfirm = `${config.email_link_confirm}?email=${mailData.to}&token=${token}`;
 
     let htmlEmail = `Por favor, confirme sus datos clicando <a href="::url">AQUI</a>`
 

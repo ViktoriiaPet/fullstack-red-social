@@ -90,7 +90,7 @@ export const softDeleteComment = async (req:Request, res:Response) => {
 export const hardDeleteComment = async (req:Request, res:Response) => {
   try {
     const row = await Comments.findByPk(req.params.id);
-    if (!row) return res.status(404).json({ error: "FAQ not found" });
+    if (!row) return res.status(404).json({ error: "comment not found" });
     await row.destroy();
     res.json({ message: "Comment removed (hard delete)" });
   } catch (e) { 

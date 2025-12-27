@@ -23,7 +23,6 @@ export const getEventById = async (req:Request, res:Response) => {
 
 export const createEvent = async (req:Request, res:Response) => {
   try {
-    console.log(req.body);
     const data = await Events.create(req.body);
     res.status(201).json(data);
   } catch (e) {
@@ -46,7 +45,7 @@ export const updateEvent = async (req:Request, res:Response) => {
 export const hardDeleteEvent = async (req:Request, res:Response) => {
   try {
     const row = await Events.findByPk(req.params.id);
-    if (!row) return res.status(404).json({ error: "FAQ not found" });
+    if (!row) return res.status(404).json({ error: "Event not found" });
     await row.destroy();
     res.json({ message: "Event removed (hard delete)" });
   } catch (e) {

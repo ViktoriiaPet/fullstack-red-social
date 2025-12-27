@@ -20,20 +20,37 @@ interface AppConfig extends DbConfig {
   email_from_mailing: string;
 }
 
+function parseNumberEnv(
+  value: string | undefined,
+  defaultValue: number,
+  name: string
+): number {
+  if (value === undefined || value === "") {
+    return defaultValue;
+  }
+
+  const parsed = Number(value);
+  if (Number.isNaN(parsed)) {
+    throw new Error(`Invalid numeric value for ${name}`);
+  }
+
+  return parsed;
+}
+
 
 const config: AppConfig  = {
 
-    api_port: Number(process.env.API_PORT ?? 3000),
+  api_port: parseNumberEnv(process.env.API_PORT, 3000, "API_PORT"),
 
   db_host: process.env.DB_HOST ?? "localhost",
   db_user: process.env.DB_USER ?? "root",
   db_password: process.env.DB_PASS ?? "",
   db_name: process.env.DB_NAME ?? "mydb",
-  db_port: Number(process.env.DB_PORT ?? 3306),
+  db_port: parseNumberEnv(process.env.DB_PORT, 3306, "DB_PORT"),
 
   email_host: process.env.EMAIL_HOST ?? "",
-  email_port: Number(process.env.EMAIL_PORT ?? 587),
-  email_secure: process.env.EMAIL_SECURE?.toUpperCase() === "TRUE",
+  email_port: parseNumberEnv(process.env.EMAIL_PORT, 587, "EMAIL_PORT"),
+  email_secure: (process.env.EMAIL_SECURE ?? "").toLowerCase() === "true",
   email_user: process.env.EMAIL_USER ?? "",
   email_password: process.env.EMAIL_PASSWORD ?? "",
   email_link_confirm: process.env.EMAIL_LINK_CONFIRM ?? "",

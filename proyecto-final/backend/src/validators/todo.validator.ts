@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const createTODOSchema = Joi.object({
+export const createTODOSchema = Joi.object({
     title: Joi.string()
         .min(3)
         .max(100)
@@ -13,7 +13,3 @@ const createTODOSchema = Joi.object({
     priority: Joi.string(),
     completed: Joi.boolean()
 });
-
-module.exports = {
-    createTODOSchema
-}

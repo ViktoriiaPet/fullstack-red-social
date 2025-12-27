@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import db from "../models/index.js";
 import dotenv from "dotenv";
 import { v4 } from "uuid";
-import token from '../common/tokens.controller.js'
+import token from '../common/generateToken.js'
 import { sendConfirmationLink} from '../common/email.controller.js'
 import { Request,  Response } from "express";
 import { UserAttributes } from "../models/users.model.js";

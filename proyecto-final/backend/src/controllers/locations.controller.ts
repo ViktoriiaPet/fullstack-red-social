@@ -45,7 +45,7 @@ export const updateLocation = async (req:Request, res:Response) => {
 export const hardDeleteLocation = async (req:Request, res:Response) => {
   try {
     const row = await Locations.findByPk(req.params.id);
-    if (!row) return res.status(404).json({ error: "FAQ not found" });
+    if (!row) return res.status(404).json({ error: "Location not found" });
     await row.destroy();
     res.json({ message: "Location removed (hard delete)" });
   } catch (e) {
