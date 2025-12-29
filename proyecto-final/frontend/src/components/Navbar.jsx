@@ -2,7 +2,6 @@ import { useContext, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { AuthContext } from "../contexts/AuthContext"
-/* import logo from "/logo.png" */
 import logo from "/logo.svg"
 import Boton from "./Boton"
 import BotonTema from "./BotonTema"
@@ -19,6 +18,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <>
@@ -43,10 +43,7 @@ const Navbar = () => {
               className="d-inline-block align-text-top logo"
             />
           </a>
-          {/* botón para abrir Sidebar en móvil */}
-          {/*   <div className="d-lg-none">
-            <Boton onClick={() => setSidebarOpen(true)}>#</Boton>
-          </div> */}
+
           <div className="d-lg-none">
             <button
               type="button"
@@ -70,72 +67,96 @@ const Navbar = () => {
               #
             </button>
           </div>
-          {/*         <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button> */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            style={{ position: "absolute", top: 10, right: 22 }}
-          >
+
+          <button className="navbar-toggler d-lg-none" onClick={() => setMenuOpen(!menuOpen)}>
             <FaBars style={{ color: "white", fontSize: "24px" }} />
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <div
+            className={`
+                navbar-collapse
+                ${menuOpen ? "d-flex" : "d-none"}
+                d-lg-flex
+              `}
+          >
             <div className="d-flex gap-2 me-auto">
-              <BotonNavbar onClick={() => navigate("/")} active={location.pathname === "/"}>
+              <BotonNavbar
+                onClick={() => {
+                  navigate("/")
+                  setMenuOpen(false)
+                }}
+                active={location.pathname === "/"}
+              >
                 Inicio
               </BotonNavbar>
 
-              {/* si hay usuario, mostramos los botones del menú */}
+              <BotonNavbar
+                onClick={() => {
+                  navigate("/faq")
+                  setMenuOpen(false)
+                }}
+                active={location.pathname === "/faq"}
+              >
+                FAQ
+              </BotonNavbar>
+
+              <BotonNavbar
+                onClick={() => {
+                  navigate("/history")
+                  setMenuOpen(false)
+                }}
+                active={location.pathname === "/history"}
+              >
+                Historia
+              </BotonNavbar>
+
+              {/* Botón de perfil fuera de user solo para actualizarlo, luego borrar */}
+              <BotonNavbar
+                onClick={() => {
+                  navigate("/profile")
+                  setMenuOpen(false)
+                }}
+                active={location.pathname === "/profile"}
+              >
+                Perfil
+              </BotonNavbar>
+
               {user && (
                 <>
                   <BotonNavbar
-                    onClick={() => navigate("/profile")}
+                    onClick={() => {
+                      navigate("/profile")
+                      setMenuOpen(false)
+                    }}
                     active={location.pathname === "/profile"}
                   >
                     Perfil
                   </BotonNavbar>
 
                   <BotonNavbar
-                    onClick={() => navigate("/my-events")}
+                    onClick={() => {
+                      navigate("/my-events")
+                      setMenuOpen(false)
+                    }}
                     active={location.pathname === "/my-events"}
                   >
                     Agenda
                   </BotonNavbar>
 
                   <BotonNavbar
-                    onClick={() => navigate("/create")}
+                    onClick={() => {
+                      navigate("/create")
+                      setMenuOpen(false)
+                    }}
                     active={location.pathname === "/create"}
                   >
                     Crear Evento
                   </BotonNavbar>
                 </>
               )}
-              <BotonNavbar onClick={() => navigate("/faq")} active={location.pathname === "/faq"}>
-                FAQ
-              </BotonNavbar>
-
-              <BotonNavbar
-                onClick={() => navigate("/history")}
-                active={location.pathname === "/history"}
-              >
-                Historia
-              </BotonNavbar>
             </div>
           </div>
+
           <div className="d-flex btn-user">
             {!user && (
               <div className="d-flex gap-3 mx-2">
