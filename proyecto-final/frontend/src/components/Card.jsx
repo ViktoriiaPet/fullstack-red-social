@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { ThemeContext } from "../contexts/ThemeContext"
-import Boton from "./Boton"
+import Button from "./ui/Button"
 import Etiqueta from "./Etiqueta"
 import UsuarioInfo from "./UsuarioInfo"
 import { eventoMock } from "../data/mockData"
@@ -162,9 +162,9 @@ const Card = () => {
           <div className="mt-3">
             <div className="d-flex gap-2 justify-content-start mb-4">
               {/* Cambio importante: usamos navigate en lugar de window.open */}
-              <Boton onClick={() => navigate("/event")}>Ver más</Boton>
+              <Button onClick={() => navigate("/event")}>Ver más</Button>
 
-              <Boton onClick={() => navigate("/event")}>Inscribirse</Boton>
+              <Button onClick={() => navigate("/event")}>Inscribirse</Button>
             </div>
 
             <Etiqueta categorias={categorias} />

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import Boton from "../components/Boton"
+
 import Etiqueta from "../components/Etiqueta"
 import { ThemeContext } from "../contexts/ThemeContext"
 import ComentariosEvento from "../components/ComentariosEvento"
@@ -15,6 +15,7 @@ import { FaFacebook } from "react-icons/fa"
 import { MdPlace } from "react-icons/md"
 import { FaCalendarCheck } from "react-icons/fa"
 import { LuAlarmClockCheck } from "react-icons/lu"
+import Button from "../components/ui/Button"
 
 function EventPage() {
   const { theme } = useContext(ThemeContext)
@@ -209,8 +210,8 @@ function EventPage() {
 
             {/* Botones de acción */}
             <div style={{ marginTop: "2rem", display: "flex", gap: "1rem" }}>
-              <Boton>Inscribirse</Boton>
-              {/*    <Boton>Chat</Boton> */}
+              <Button>Inscribirse</Button>
+              {/*    <Button>Chat</Button> */}
             </div>
 
             {/* Etiquetas */}

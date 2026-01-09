@@ -42,7 +42,7 @@ const ThemeProvider = ({ children }) => {
 
     up: isDarkMode ? COLORS.darkAccent : COLORS.purpleDark,
 
-    boton: {
+    Button: {
       base: {
         backgroundColor: isDarkMode ? COLORS.purpleLight : COLORS.purpleDark,
         color: COLORS.white,

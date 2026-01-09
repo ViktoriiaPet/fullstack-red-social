@@ -4,9 +4,10 @@ import { ThemeContext } from "../contexts/ThemeContext"
 import { AuthContext } from "../contexts/AuthContext"
 import { eventoMock } from "../data/mockData"
 import Titulo from "../components/Titulo"
-import Boton from "../components/Boton"
+
 import MensajeBurbuja from "../components/MensajeBurbuja"
 import { BsChatRightFill } from "react-icons/bs"
+import Button from "../components/ui/Button"
 
 const socket = io("http://localhost:4000")
 
@@ -147,9 +148,9 @@ export default function ChatPage() {
                 e.key === "Enter" && !e.shiftKey && (e.preventDefault(), sendMessage())
               }
             />
-            <Boton style={{ marginLeft: "0.5rem" }} onClick={sendMessage}>
+            <Button style={{ marginLeft: "0.5rem" }} onClick={sendMessage}>
               Enviar
-            </Boton>
+            </Button>
           </div>
         </div>
       </div>

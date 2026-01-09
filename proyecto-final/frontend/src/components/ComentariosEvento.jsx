@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from "react"
 import { ThemeContext } from "../contexts/ThemeContext"
-import Boton from "./Boton"
+
 import { BsChatRightFill } from "react-icons/bs"
 import { FaRegClock } from "react-icons/fa"
 import { AiFillLike } from "react-icons/ai"
 import { RiDeleteBin6Fill } from "react-icons/ri"
 import { BiSolidPencil } from "react-icons/bi"
+import Button from "./ui/Button"
 
 // Mock DB inicial con IDs únicos
 const mockComentariosDB = [
@@ -162,7 +163,7 @@ const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
           }}
         />
 
-        <Boton onClick={manejarEnvio}>Enviar comentario</Boton>
+        <Button onClick={manejarEnvio}>Enviar comentario</Button>
       </div>
 
       <div
@@ -230,7 +231,7 @@ const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
                         }}
                       />
 
-                      <Boton onClick={aplicarCambios}>Aplicar cambios</Boton>
+                      <Button onClick={aplicarCambios}>Aplicar cambios</Button>
                     </>
                   ) : (
                     <div
@@ -266,7 +267,7 @@ const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
                   </div>
 
                   <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
-                    <Boton
+                    <Button
                       style={{
                         fontSize: "16px",
                         display: "flex",
@@ -278,11 +279,11 @@ const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
                       onClick={() => manejarLike(c.id)}
                     >
                       <AiFillLike /> {c.likes.length}
-                    </Boton>
+                    </Button>
 
                     {(admin || c.usuario === user) && editID !== c.id && (
                       <>
-                        <Boton
+                        <Button
                           style={{
                             fontSize: "16px",
                             display: "flex",
@@ -293,9 +294,9 @@ const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
                           onClick={() => manejarEditar(c.id)}
                         >
                           <BiSolidPencil />
-                        </Boton>
+                        </Button>
 
-                        <Boton
+                        <Button
                           style={{
                             fontSize: "16px",
                             display: "flex",
@@ -306,7 +307,7 @@ const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
                           onClick={() => manejarBorrar(c.id)}
                         >
                           <RiDeleteBin6Fill />
-                        </Boton>
+                        </Button>
                       </>
                     )}
                   </div>

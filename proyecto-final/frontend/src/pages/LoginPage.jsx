@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/AuthContext"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { postJSON } from "../utils/apiclient"
 import { BsEye, BsEyeSlash } from "react-icons/bs"
-import Boton from "../components/Boton"
+import Button from "../components/ui/Button"
 
 function LoginPage() {
   // obtenemos la función login del contexto de autenticación
@@ -157,20 +157,20 @@ function LoginPage() {
               type="submit"
               className="btn w-100"
               style={{
-                backgroundColor: theme.boton.base.backgroundColor,
-                color: theme.boton.base.color,
-                border: theme.boton.base.border,
+                backgroundColor: theme.Button.base.backgroundColor,
+                color: theme.Button.base.color,
+                border: theme.Button.base.border,
               }}
               onMouseOver={(e) =>
-                (e.currentTarget.style.backgroundColor = theme.boton.hover.backgroundColor)
+                (e.currentTarget.style.backgroundColor = theme.Button.hover.backgroundColor)
               }
               onMouseOut={(e) =>
-                (e.currentTarget.style.backgroundColor = theme.boton.base.backgroundColor)
+                (e.currentTarget.style.backgroundColor = theme.Button.base.backgroundColor)
               }
             >
               Login
             </button> */}
-            <Boton type="submit">Entrar</Boton>
+            <Button type="submit">Entrar</Button>
           </form>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { ThemeContext } from "../contexts/ThemeContext"
 import { AuthContext } from "../contexts/AuthContext"
 /* import logo from "/logo.png" */
 import logo from "/logo.svg"
-import Boton from "./Boton"
+import Button from "./ui/Button"
 import BotonTema from "./BotonTema"
 import Sidebar from "./SideBar"
 import BotonNavbar from "./BotonNavbar"
@@ -45,7 +45,7 @@ const Navbar = () => {
           </a>
           {/* botón para abrir Sidebar en móvil */}
           {/*   <div className="d-lg-none">
-            <Boton onClick={() => setSidebarOpen(true)}>#</Boton>
+            <Button onClick={() => setSidebarOpen(true)}>#</Button>
           </div> */}
           <div className="d-lg-none">
             <button
@@ -139,8 +139,8 @@ const Navbar = () => {
           <div className="d-flex btn-user">
             {!user && (
               <div className="d-flex gap-3 mx-2">
-                <Boton onClick={() => navigate("/login")}>Iniciar</Boton>
-                <Boton onClick={() => navigate("/register")}>Registro</Boton>
+                <Button onClick={() => navigate("/login")}>Iniciar</Button>
+                <Button onClick={() => navigate("/register")}>Registro</Button>
               </div>
             )}
 

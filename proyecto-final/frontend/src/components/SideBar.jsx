@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { ThemeContext } from "../contexts/ThemeContext"
-import Boton from "./Boton"
+import Button from "./ui/Button"
 import MiniCalendario from "./miniCalendario"
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -35,7 +35,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       <div
         className="d-none d-lg-flex flex-column flex-shrink-0 px-5 pt-4 vh-100 sidebar position-fixed"
         style={{
-          top: 60, 
+          top: 60,
           width: "300px",
           backgroundColor: theme.sidebarColor,
           color: theme.textColor,
@@ -64,7 +64,9 @@ const Sidebar = ({ isOpen, onClose }) => {
             }}
           >
             {categorias.map((categoria) => (
-              <Boton style={{margin: "0 8px"}} key={categoria}>{categoria}</Boton>
+              <Button style={{ margin: "0 8px" }} key={categoria}>
+                {categoria}
+              </Button>
             ))}
           </div>
 
@@ -88,7 +90,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         >
           <div className="p-3 d-flex justify-content-between align-items-center">
             <h5 className="text-white">Categorías</h5>
-            <Boton onClick={onClose}>Cerrar</Boton>
+            <Button onClick={onClose}>Cerrar</Button>
           </div>
 
           {/* Contenedor principal en móvil */}
@@ -111,7 +113,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               }}
             >
               {categorias.map((categoria) => (
-                <Boton key={categoria}>{categoria}</Boton>
+                <Button key={categoria}>{categoria}</Button>
               ))}
             </div>
 
