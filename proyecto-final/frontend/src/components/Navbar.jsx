@@ -1,21 +1,14 @@
 import { useContext, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { ThemeContext } from "../contexts/ThemeContext"
 import { AuthContext } from "../contexts/AuthContext"
-/* import logo from "/logo.png" */
 import logo from "/logo.svg"
 import Button from "./ui/Button"
-import BotonTema from "./BotonTema"
-import Sidebar from "./SideBar"
-
-import UsuarioNavbar from "./UsuarioNavbar"
-import { FaRegMoon } from "react-icons/fa"
-import { MdSunny } from "react-icons/md"
-import { FaBars } from "react-icons/fa"
 import ButtonText from "./ui/ButtonText"
+import Sidebar from "./SideBar"
+import UsuarioNavbar from "./UsuarioNavbar"
+import { FaBars } from "react-icons/fa"
 
 const Navbar = () => {
-  const { toggleTheme, theme, isDarkMode } = useContext(ThemeContext)
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
@@ -23,19 +16,9 @@ const Navbar = () => {
 
   return (
     <>
-      <nav
-        className="navbar navbar-dark navbar-expand-lg fixed-top"
-        style={{
-          backgroundColor: theme.navbarBG,
-          borderBottom: theme.navbarBorder,
-        }}
-      >
+      <nav className="navbar navbar-dark navbar-expand-lg fixed-top bg-background border-b border-white">
         <div className="container-fluid" style={{ position: "relative" }}>
-          <a
-            className="navbar-brand d-flex align-items-center ms-5"
-            href="/"
-            style={{ color: theme.textColor }}
-          >
+          <a className="navbar-brand d-flex align-items-center ms-5" href="/">
             <img
               src={logo}
               alt="logo Armand Events"
@@ -146,8 +129,6 @@ const Navbar = () => {
             )}
 
             {user && <UsuarioNavbar />}
-
-            <BotonTema onClick={toggleTheme}>{isDarkMode ? <FaRegMoon /> : <MdSunny />}</BotonTema>
           </div>
         </div>
       </nav>
