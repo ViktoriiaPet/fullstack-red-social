@@ -7,11 +7,12 @@ import logo from "/logo.svg"
 import Button from "./ui/Button"
 import BotonTema from "./BotonTema"
 import Sidebar from "./SideBar"
-import BotonNavbar from "./BotonNavbar"
+
 import UsuarioNavbar from "./UsuarioNavbar"
 import { FaRegMoon } from "react-icons/fa"
 import { MdSunny } from "react-icons/md"
 import { FaBars } from "react-icons/fa"
+import ButtonText from "./ui/ButtonText"
 
 const Navbar = () => {
   const { toggleTheme, theme, isDarkMode } = useContext(ThemeContext)
@@ -93,49 +94,49 @@ const Navbar = () => {
           >
             <FaBars style={{ color: "white", fontSize: "24px" }} />
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <div className="d-flex gap-2 me-auto">
-              <BotonNavbar onClick={() => navigate("/")} active={location.pathname === "/"}>
-                Inicio
-              </BotonNavbar>
+          {/*       <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
+          <div className="d-flex gap-2 me-auto">
+            <ButtonText onClick={() => navigate("/")} active={location.pathname === "/"}>
+              Inicio
+            </ButtonText>
 
-              {/* si hay usuario, mostramos los botones del menú */}
-              {user && (
-                <>
-                  <BotonNavbar
-                    onClick={() => navigate("/profile")}
-                    active={location.pathname === "/profile"}
-                  >
-                    Perfil
-                  </BotonNavbar>
+            {/* si hay usuario, mostramos los botones del menú */}
+            {user && (
+              <>
+                <ButtonText
+                  onClick={() => navigate("/profile")}
+                  active={location.pathname === "/profile"}
+                >
+                  Perfil
+                </ButtonText>
 
-                  <BotonNavbar
-                    onClick={() => navigate("/my-events")}
-                    active={location.pathname === "/my-events"}
-                  >
-                    Agenda
-                  </BotonNavbar>
+                <ButtonText
+                  onClick={() => navigate("/my-events")}
+                  active={location.pathname === "/my-events"}
+                >
+                  Agenda
+                </ButtonText>
 
-                  <BotonNavbar
-                    onClick={() => navigate("/create")}
-                    active={location.pathname === "/create"}
-                  >
-                    Crear Evento
-                  </BotonNavbar>
-                </>
-              )}
-              <BotonNavbar onClick={() => navigate("/faq")} active={location.pathname === "/faq"}>
-                FAQ
-              </BotonNavbar>
+                <ButtonText
+                  onClick={() => navigate("/create")}
+                  active={location.pathname === "/create"}
+                >
+                  Crear Evento
+                </ButtonText>
+              </>
+            )}
+            <ButtonText onClick={() => navigate("/faq")} active={location.pathname === "/faq"}>
+              FAQ
+            </ButtonText>
 
-              <BotonNavbar
-                onClick={() => navigate("/history")}
-                active={location.pathname === "/history"}
-              >
-                Historia
-              </BotonNavbar>
-            </div>
+            <ButtonText
+              onClick={() => navigate("/history")}
+              active={location.pathname === "/history"}
+            >
+              Historia
+            </ButtonText>
           </div>
+          {/*    </div> */}
           <div className="d-flex btn-user">
             {!user && (
               <div className="d-flex gap-3 mx-2">

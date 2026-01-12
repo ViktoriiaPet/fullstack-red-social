@@ -55,7 +55,7 @@ const ThemeProvider = ({ children }) => {
 
     borderColor: isDarkMode ? COLORS.black : COLORS.white,
 
-    botonNavbar: {
+    ButtonText: {
       base: {
         color: COLORS.white,
       },

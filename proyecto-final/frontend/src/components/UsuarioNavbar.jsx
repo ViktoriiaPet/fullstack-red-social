@@ -19,7 +19,7 @@ function UsuarioNavbar() {
   }
 
   const nameStyle = {
-    color: hoverName ? theme.botonNavbar.hover.color : theme.botonNavbar.base.color,
+    color: hoverName ? theme.ButtonText.hover.color : theme.ButtonText.base.color,
     transition: "color 0.3s ease",
     fontWeight: "bold",
   }
@@ -31,9 +31,9 @@ function UsuarioNavbar() {
         type="button"
         onClick={() => setOpen(!open)}
         style={{
-          backgroundColor: theme.botonNavbar.base.backgroundColor,
-          color: theme.botonNavbar.base.color,
-          border: theme.botonNavbar.base.border,
+          backgroundColor: theme.ButtonText.base.backgroundColor,
+          color: theme.ButtonText.base.color,
+          border: theme.ButtonText.base.border,
         }}
       >
         <img
@@ -79,7 +79,7 @@ function UsuarioNavbar() {
             onMouseLeave={() => setHoverLogout(false)}
             style={{
               backgroundColor: "transparent",
-              color: hoverLogout ? theme.botonNavbar.hover.color : theme.textColor,
+              color: hoverLogout ? theme.ButtonText.hover.color : theme.textColor,
               transition: "color 0.3s ease",
             }}
           >

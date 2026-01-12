@@ -1,7 +1,8 @@
 import { useContext } from "react"
 import { ThemeContext } from "../contexts/ThemeContext"
-import BotonNavbar from "./BotonNavbar"
+
 import { useNavigate, useLocation } from "react-router-dom"
+import ButtonText from "./ui/ButtonText"
 
 export default function Footer() {
   const { theme } = useContext(ThemeContext)
@@ -17,22 +18,22 @@ export default function Footer() {
       }}
     >
       <div className="footer__inner">
-        <BotonNavbar
+        <ButtonText
           onClick={() => navigate("/normativa")}
           active={location.pathname === "/normativa"}
         >
           Normativa
-        </BotonNavbar>
-        <BotonNavbar
+        </ButtonText>
+        <ButtonText
           onClick={() => navigate("/privacidad")}
           active={location.pathname === "/privacidad"}
         >
           Privacidad
-        </BotonNavbar>
+        </ButtonText>
 
-        <BotonNavbar onClick={() => navigate("/cookies")} active={location.pathname === "/cookies"}>
+        <ButtonText onClick={() => navigate("/cookies")} active={location.pathname === "/cookies"}>
           Cookies
-        </BotonNavbar>
+        </ButtonText>
       </div>
     </footer>
   )

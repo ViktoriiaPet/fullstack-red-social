@@ -5,7 +5,7 @@ const BotonTema = ({ children, onClick = () => {}, type = "button", style: custo
   const { theme } = useContext(ThemeContext)
   const [hovered, setHovered] = useState(false)
 
-  const iconColor = hovered ? theme.botonNavbar.hover.color : theme.botonNavbar.base.color
+  const iconColor = hovered ? theme.ButtonText.hover.color : theme.ButtonText.base.color
 
   const baseStyle = {
     background: "transparent",
@@ -15,7 +15,7 @@ const BotonTema = ({ children, onClick = () => {}, type = "button", style: custo
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "25px"
+    fontSize: "25px",
   }
 
   const finalStyle = {
