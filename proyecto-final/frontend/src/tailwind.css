@@ -1,0 +1,13 @@
+/* tailwind.css o styles/tailwind.css */
+@import "tailwindcss";
+
+@theme {
+  --color-main: #6739e4;
+  --color-mainLight: #9569ff;
+  --color-secondary: #282554;
+  --color-accent: #eb8500ff; /* hover */
+  --color-background: #131231;
+  --color-surface: #362466;
+  --color-textPrimary: #ffffff;
+  --color-textSecondary: #f0eafe;
+}

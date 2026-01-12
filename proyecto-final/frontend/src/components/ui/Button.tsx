@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={`bg-[#6739E4] hover:bg-[#eb8500ff] text-[#FFFFFF] px-4 py-2 rounded font-medium cursor-pointer transition-all duration-300 ${className}`}
+      className={`bg-main hover:bg-accent text-[#FFFFFF] px-4 py-2 rounded font-medium cursor-pointer transition-all duration-300 ${className}`}
     >
       {children}
     </button>
