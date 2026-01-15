@@ -41,7 +41,7 @@ export const updateEvent = async (req:Request, res:Response) => {
     res.status(500).json({ error: error.message }); }
 };
 
-// Hard delete del comentario
+// Hard delete del evento
 export const hardDeleteEvent = async (req:Request, res:Response) => {
   try {
     const row = await Events.findByPk(req.params.id);
