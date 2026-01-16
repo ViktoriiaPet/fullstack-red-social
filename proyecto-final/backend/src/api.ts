@@ -1,12 +1,12 @@
-import express from 'express'
-import config from "./config/config.js";
+import express from "express"
+import config from "./config/config.js"
 import notFound from "./middlewares/error.middleware.js"
-import routes from "./routes/index.js";
-import cors from 'cors';
-import { sequelize } from './models/index.js';
-import { Application } from 'express';
+import routes from "./routes/index.js"
+import cors from "cors"
+import { sequelize } from "./models/index.js"
+import { Application } from "express"
 
-const api: Application = express();
+const api: Application = express()
 
 // CORS: permitir el origen del frontend (usar FRONT_URL en .env si está definido)
 api.use(
@@ -15,33 +15,35 @@ api.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
-);
+)
 
-// middleware config  
-api.use(express.json());
+// middleware config
+api.use(express.json())
 
-api.use("/api/v1", routes);
+api.use("/api/v1", routes)
 
-api.use(notFound);
+api.use(notFound)
 
 async function startServer() {
   try {
-    await sequelize.authenticate();
-    console.log("✅ Conectado a la base de datos");
+    await sequelize.authenticate()
+    console.log("✅ Conectado a la base de datos")
 
-    await sequelize.sync({ alter: true }); // sincroniza sin borrar datos (menos destructivo)
-    console.log("✅ Tablas sincronizadas correctamente");
+    await sequelize.sync({ alter: true }) // sincroniza sin borrar datos (menos destructivo)
+    console.log("✅ Tablas sincronizadas correctamente")
     // Asegurar columna `deleted_at` para modelos con paranoid: true
   } catch (error) {
-    console.error("❌ Error al conectar/sincronizar la base de datos:", error);
-    console.log("↪ Se inicia el servidor igualmente para facilitar pruebas (endpoints pueden fallar si dependen de la BD).");
+    console.error("❌ Error al conectar/sincronizar la base de datos:", error)
+    console.log(
+      "↪ Se inicia el servidor igualmente para facilitar pruebas (endpoints pueden fallar si dependen de la BD)."
+    )
   }
 }
-startServer();
+startServer()
 
 api.listen(config.api_port, () => {
-    console.log(`===========================================`)
-    console.log(`Servidor corriendo en puerto ${config.api_port}`)
-    console.log(`URL http://localhost:${config.api_port}`)
-    console.log(`===========================================`)
-});
+  console.log(`===========================================`)
+  console.log(`Servidor corriendo en puerto ${config.api_port}`)
+  console.log(`URL http://localhost:${config.api_port}`)
+  console.log(`===========================================`)
+})
