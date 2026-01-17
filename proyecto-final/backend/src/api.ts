@@ -27,14 +27,14 @@ api.use(notFound);
 async function startServer() {
   try {
     await sequelize.authenticate();
-    console.log("✅ Conectado a la base de datos");
+    console.log(" Conectado a la base de datos");
 
     await sequelize.sync({ alter: true }); // sincroniza sin borrar datos (menos destructivo)
-    console.log("✅ Tablas sincronizadas correctamente");
+    console.log(" Tablas sincronizadas correctamente");
     // Asegurar columna `deleted_at` para modelos con paranoid: true
   } catch (error) {
-    console.error("❌ Error al conectar/sincronizar la base de datos:", error);
-    console.log("↪ Se inicia el servidor igualmente para facilitar pruebas (endpoints pueden fallar si dependen de la BD).");
+    console.error(" Error al conectar/sincronizar la base de datos:", error);
+    console.log(" Se inicia el servidor igualmente para facilitar pruebas (endpoints pueden fallar si dependen de la BD).");
   }
 }
 startServer();
