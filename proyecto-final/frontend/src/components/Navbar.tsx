@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext"
 import logo from "/logo.svg"
 import Button from "./ui/Button"
 import ButtonText from "./ui/ButtonText"
-import Sidebar from "./SideBar"
+import Sidebar from "./Sidebar"
 import UsuarioNavbar from "./UsuarioNavbar"
 import { FaBars } from "react-icons/fa"
 

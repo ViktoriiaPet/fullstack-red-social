@@ -64,9 +64,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             }}
           >
             {categorias.map((categoria) => (
-              <Button style={{ margin: "0 8px" }} key={categoria}>
-                {categoria}
-              </Button>
+              <Button key={categoria}>{categoria}</Button>
             ))}
           </div>
 

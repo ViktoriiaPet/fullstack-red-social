@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react"
+import ButtonText from "./ui/ButtonText"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { AuthContext } from "../contexts/AuthContext"
 import { eventoMock } from "../data/mockData"
@@ -72,19 +73,7 @@ function UsuarioNavbar() {
             boxShadow: "0 0.5rem 1rem rgba(0,0,0,0.15)",
           }}
         >
-          <button
-            className="dropdown-item fw-bold text-center"
-            onClick={logout}
-            onMouseEnter={() => setHoverLogout(true)}
-            onMouseLeave={() => setHoverLogout(false)}
-            style={{
-              backgroundColor: "transparent",
-              color: hoverLogout ? theme.ButtonText.hover.color : theme.textColor,
-              transition: "color 0.3s ease",
-            }}
-          >
-            Logout
-          </button>
+          <ButtonText onClick={logout}>Logout</ButtonText>
         </div>
       )}
     </div>
