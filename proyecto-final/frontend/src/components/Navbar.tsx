@@ -1,76 +1,51 @@
-import { useContext, useState, FC } from "react"
-import { useNavigate, useLocation, Location } from "react-router-dom"
-import logo from "/logo.svg"
-import Button from "./ui/Button"
-import ButtonText from "./ui/ButtonText"
-import Sidebar from "./Sidebar"
-import UsuarioNavbar from "./UsuarioNavbar"
-import { FaBars } from "react-icons/fa"
+import { useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useAuthStore } from "../store/authStore"
 import { useSidebarStore } from "../store/sidebarStore"
+import Sidebar from "./Sidebar"
+import UsuarioNavbar from "./UsuarioNavbar"
+import Button from "./ui/Button"
+import ButtonText from "./ui/ButtonText"
+import { FaBars } from "react-icons/fa"
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false)
   const user = useAuthStore((state) => state.user)
+  const openSidebar = useSidebarStore((state) => state.open)
   const navigate = useNavigate()
   const location = useLocation()
-  const open = useSidebarStore((state) => state.open)
 
   return (
     <>
-      <nav className="navbar navbar-dark navbar-expand-lg fixed-top bg-background border-b border-white">
-        <div className="container-fluid" style={{ position: "relative" }}>
-          <a className="navbar-brand d-flex align-items-center ms-5" href="/">
+      <nav className="flex justify-between items-center w-full fixed top-0 z-50 px-4 py-2 bg-background border-b border-white">
+        <div className="w-full flex items-center justify-between relative ml-5">
+          <a className="flex items-center " href="/">
             <img
-              src={logo}
+              src="/logo.svg"
               alt="logo Armand Events"
               width="45"
               height="45"
-              className="d-inline-block align-text-top logo"
+              className="inline-block align-top logo"
             />
           </a>
-          {/* botón para abrir Sidebar en móvil */}
-          {/*   <div className="d-lg-none">
-            <Button onClick={() => setSidebarOpen(true)}>#</Button>
-          </div> */}
-          <div className="d-lg-none">
+
+          {/* sidebar button */}
+          <div className="lg:hidden">
             <Button
               type="button"
-              onClick={open}
-              className=" absolute top-30 right-5 bg-transparent hover:bg-transparent border-[3px] border-white px-4 py-2 text-white "
+              onClick={openSidebar}
+              className="absolute top-30 right-5 bg-transparent hover:bg-transparent border-[3px] border-white px-4 py-2 text-white"
             >
               #
             </Button>
           </div>
-          {/*         <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button> */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            style={{ position: "absolute", top: 10, right: 22 }}
-          >
-            <FaBars style={{ color: "white", fontSize: "24px" }} />
-          </button>
-          {/*       <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
-          <div className="d-flex gap-2 me-auto">
+
+          {/* desktop menu */}
+          <div className="hidden lg:flex gap-2 mr-auto">
             <ButtonText onClick={() => navigate("/")} active={location.pathname === "/"}>
               Inicio
             </ButtonText>
 
-            {/* si hay usuario, mostramos los botones del menú */}
             {user && (
               <>
                 <ButtonText
@@ -95,6 +70,7 @@ const Navbar = () => {
                 </ButtonText>
               </>
             )}
+
             <ButtonText onClick={() => navigate("/faq")} active={location.pathname === "/faq"}>
               FAQ
             </ButtonText>
@@ -106,16 +82,45 @@ const Navbar = () => {
               Historia
             </ButtonText>
           </div>
-          {/*    </div> */}
-          <div className="d-flex btn-user">
-            {!user && (
-              <div className="d-flex gap-3 mx-2">
-                <Button onClick={() => navigate("/login")}>Iniciar</Button>
-                <Button onClick={() => navigate("/register")}>Registro</Button>
-              </div>
-            )}
 
-            {user && <UsuarioNavbar />}
+          {/* mobile menu */}
+          {menuOpen && (
+            <div className="lg:hidden absolute top-15 right-0 bg-background border border-white rounded p-4 flex flex-col gap-3 z-50 max-w-[90vw] overflow-x-hidden">
+              <ButtonText onClick={() => navigate("/")}>Inicio</ButtonText>
+
+              {user && (
+                <>
+                  <ButtonText onClick={() => navigate("/profile")}>Perfil</ButtonText>
+                  <ButtonText onClick={() => navigate("/my-events")}>Agenda</ButtonText>
+                  <ButtonText onClick={() => navigate("/create")}>Crear Evento</ButtonText>
+                </>
+              )}
+
+              <ButtonText onClick={() => navigate("/faq")}>FAQ</ButtonText>
+              <ButtonText onClick={() => navigate("/history")}>Historia</ButtonText>
+            </div>
+          )}
+
+          <div className="flex items-center gap-2">
+            {/* login / user section */}
+            <div className="flex mr-16 lg:mr-8">
+              {!user && (
+                <div className="flex gap-3 mx-2">
+                  <Button onClick={() => navigate("/login")}>Iniciar</Button>
+                  <Button onClick={() => navigate("/register")}>Registro</Button>
+                </div>
+              )}
+
+              {user && <UsuarioNavbar />}
+            </div>
+
+            {/* burger menu button */}
+            <Button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden bg-transparent hover:bg-transparent border border-white p-2 rounded"
+            >
+              <FaBars className="text-white text-2xl" />
+            </Button>
           </div>
         </div>
       </nav>
