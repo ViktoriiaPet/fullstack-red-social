@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react"
 import ButtonText from "./ui/ButtonText"
 import { ThemeContext } from "../contexts/ThemeContext"
-import { AuthContext } from "../contexts/AuthContext"
 import { eventoMock } from "../data/mockData"
+import { useAuthStore } from "../store/authStore"
 
 function UsuarioNavbar() {
   const { theme } = useContext(ThemeContext)
-  const { user, logout } = useContext(AuthContext)
+  const user = useAuthStore((state) => state.user)
+  const logout = useAuthStore((state) => state.logout)
   const [open, setOpen] = useState(false)
   const [hoverName, setHoverName] = useState(false)
-  const [hoverLogout, setHoverLogout] = useState(false)
 
   if (!user) return null // No mostramos nada si no hay usuario
 

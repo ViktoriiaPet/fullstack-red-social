@@ -1,17 +1,15 @@
 import Card from "../components/Card"
 import Titulo from "../components/Titulo"
-
-import { useContext } from "react"
-import { AuthContext } from "../contexts/AuthContext"
 import AlertaPublica from "../components/AlertaPublica"
+import { useAuthStore } from "../store/authStore"
 // import { getJSON } from "../utils/apiclient"
 
 function HomePage() {
-  const { user } = useContext(AuthContext)
+  const user = useAuthStore((state) => state.user)
 
   return (
     <>
-        {!user && <AlertaPublica />}
+      {!user && <AlertaPublica />}
       <Titulo title="PUBLICACIONES" />
       <>
         <div className="row g-4  w-auto">

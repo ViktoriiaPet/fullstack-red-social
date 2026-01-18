@@ -6,7 +6,6 @@ import { ThemeProvider } from "./contexts/ThemeContext.jsx"
 import { BrowserRouter } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
-import { AuthProvider } from "./contexts/AuthContext.jsx"
 
 const rootElement = document.getElementById("root")
 
@@ -16,12 +15,10 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <AuthProvider>
-      <ThemeProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
   </StrictMode>
 )

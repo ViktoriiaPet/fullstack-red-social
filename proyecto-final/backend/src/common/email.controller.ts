@@ -1,8 +1,6 @@
-import nodemailer from 'nodemailer';
-import config from '../config/config.js'
+import nodemailer from "nodemailer"
+import config from "../config/config.js"
 //import SendmailTransport from 'nodemailer/lib/sendmail-transport';
-
-
 
 // Create a test account or replace with real credentials.
 // const transporter = nodemailer.createTransport({
@@ -16,11 +14,11 @@ import config from '../config/config.js'
 // });
 
 interface MailData {
-    from?: string;
-    to: string;
-    subject?: string;
-    text?: string;
-    html?: string;
+  from?: string
+  to: string
+  subject?: string
+  text?: string
+  html?: string
 }
 
 const transporter = nodemailer.createTransport({
@@ -31,7 +29,7 @@ const transporter = nodemailer.createTransport({
     user: config.email_user,
     pass: config.email_password,
   },
-});
+})
 
 // Wrap in an async IIFE so we can use await.
 // (async () => {
@@ -46,35 +44,39 @@ const transporter = nodemailer.createTransport({
 //   console.log("Message sent:", info.messageId);
 // })();
 
-export async function sendMail (mailData: MailData) {
+export async function sendMail(mailData: MailData) {
   return await transporter.sendMail({
     from: mailData.from,
     to: mailData.to,
     subject: mailData.subject,
     text: mailData.text, // plain‑text body
     html: mailData.html, // HTML body
-  });
-};
+  })
+}
 
-export async function sendConfirmationLink(mailData: MailData,token: string)
-{
-    const urlConfirm = `${config.email_link_confirm}?email=${mailData.to}&token=${token}`;
+export async function sendConfirmationLink(mailData: MailData, token: string) {
+  const urlConfirm = `${config.email_link_confirm}?email=${mailData.to}&token=${token}`
 
-    let htmlEmail = `Por favor, confirme sus datos clicando <a href="::url">AQUI</a>`
+  let htmlEmail = `Por favor, confirme sus datos clicando <a href="::url">AQUI</a>`
 
-    if (typeof mailData.html !== 'undefined')
-    {
-        htmlEmail = mailData.html
-    }
+  if (typeof mailData.html !== "undefined") {
+    htmlEmail = mailData.html
+  }
 
-    htmlEmail = htmlEmail.replace('::url',urlConfirm)
+  htmlEmail = htmlEmail.replace("::url", urlConfirm)
 
-    mailData.html = htmlEmail
-    
-    if (typeof mailData.subject === 'undefined') mailData.subject = `Confirmación registro en Armand Events`
-    if (typeof mailData.from === 'undefined') mailData.from = config.email_from_confirm
+  mailData.html = htmlEmail
 
-    console.log(`Enviando correo de confirmación de usuario ${mailData.to}`)
+  if (typeof mailData.subject === "undefined")
+    mailData.subject = `Confirmación registro en Armand Events`
+  if (typeof mailData.from === "undefined") mailData.from = config.email_from_confirm
 
-    sendMail(mailData);
+  // Only send real emails if we are in production
+  if (process.env.NODE_ENV === "production") {
+    console.log(`Enviando correo de confirmación a ${mailData.to}`)
+    await sendMail(mailData)
+  } else {
+    // In development, just log the email
+    console.log(`[DEV MODE] Simulando envío de email a ${mailData.to}:`, mailData)
+  }
 }

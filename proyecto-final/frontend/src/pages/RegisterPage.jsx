@@ -2,15 +2,15 @@ import { useState, useContext, useEffect } from "react"
 import Modal from "bootstrap/js/dist/modal"
 import Titulo from "../components/Titulo"
 import { ThemeContext } from "../contexts/ThemeContext"
-import { AuthContext } from "../contexts/AuthContext"
 import { postJSON } from "../utils/apiclient"
 import { BsEye, BsEyeSlash } from "react-icons/bs"
 import OkModal from "../assets/modals/okModal"
 import Button from "../components/ui/Button"
+import { useAuthStore } from "../store/authStore"
 
 function RegisterPage() {
   // obtenemos la función login del contexto de autenticación
-  const { login } = useContext(AuthContext)
+  const login = useAuthStore((state) => state.login)
 
   // obtenemos el theme para aplicar colores y estilos
   const { theme } = useContext(ThemeContext)

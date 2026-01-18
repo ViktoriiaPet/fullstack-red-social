@@ -1,18 +1,18 @@
-import { useContext, useState } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
-import { AuthContext } from "../contexts/AuthContext"
+import { useContext, useState, FC } from "react"
+import { useNavigate, useLocation, Location } from "react-router-dom"
 import logo from "/logo.svg"
 import Button from "./ui/Button"
 import ButtonText from "./ui/ButtonText"
 import Sidebar from "./Sidebar"
 import UsuarioNavbar from "./UsuarioNavbar"
 import { FaBars } from "react-icons/fa"
+import { useAuthStore } from "../store/authStore"
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext)
+  const user = useAuthStore((state) => state.user)
   const navigate = useNavigate()
   const location = useLocation()
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
 
   return (
     <>

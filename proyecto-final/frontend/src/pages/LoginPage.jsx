@@ -1,7 +1,7 @@
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import Titulo from "../components/Titulo"
-import { AuthContext } from "../contexts/AuthContext"
+import { useAuthStore } from "../store/authStore"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { postJSON } from "../utils/apiclient"
 import { BsEye, BsEyeSlash } from "react-icons/bs"
@@ -9,7 +9,7 @@ import Button from "../components/ui/Button"
 
 function LoginPage() {
   // obtenemos la función login del contexto de autenticación
-  const { login } = useContext(AuthContext)
+  const login = useAuthStore((state) => state.login)
 
   // obtenemos el theme para aplicar colores y estilos
   const { theme } = useContext(ThemeContext)

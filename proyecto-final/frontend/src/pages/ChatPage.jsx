@@ -1,19 +1,19 @@
 import { useEffect, useState, useContext, useRef } from "react"
 import { io } from "socket.io-client"
 import { ThemeContext } from "../contexts/ThemeContext"
-import { AuthContext } from "../contexts/AuthContext"
 import { eventoMock } from "../data/mockData"
 import Titulo from "../components/Titulo"
 
 import MensajeBurbuja from "../components/MensajeBurbuja"
 import { BsChatRightFill } from "react-icons/bs"
 import Button from "../components/ui/Button"
+import { useAuthStore } from "../store/authStore"
 
 const socket = io("http://localhost:4000")
 
 export default function ChatPage() {
   const { theme } = useContext(ThemeContext)
-  const { user } = useContext(AuthContext)
+  const user = useAuthStore((state) => state.user)
   const chatEndRef = useRef(null)
 
   const usuarioActual = {
