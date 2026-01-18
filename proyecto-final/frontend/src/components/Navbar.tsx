@@ -7,12 +7,13 @@ import Sidebar from "./Sidebar"
 import UsuarioNavbar from "./UsuarioNavbar"
 import { FaBars } from "react-icons/fa"
 import { useAuthStore } from "../store/authStore"
+import { useSidebarStore } from "../store/sidebarStore"
 
 const Navbar = () => {
   const user = useAuthStore((state) => state.user)
   const navigate = useNavigate()
   const location = useLocation()
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
+  const open = useSidebarStore((state) => state.open)
 
   return (
     <>
@@ -32,27 +33,13 @@ const Navbar = () => {
             <Button onClick={() => setSidebarOpen(true)}>#</Button>
           </div> */}
           <div className="d-lg-none">
-            <button
+            <Button
               type="button"
-              onClick={() => setSidebarOpen(true)}
-              style={{
-                position: "absolute",
-                top: 120,
-                right: 20,
-                borderWidth: "3px",
-                borderColor: "white",
-                borderStyle: "solid",
-                borderRadius: "6px",
-                backgroundColor: "transparent",
-                padding: "0.5rem 1rem",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                fontWeight: "500",
-                color: "white",
-              }}
+              onClick={open}
+              className=" absolute top-30 right-5 bg-transparent hover:bg-transparent border-[3px] border-white px-4 py-2 text-white "
             >
               #
-            </button>
+            </Button>
           </div>
           {/*         <button
             className="navbar-toggler"
@@ -133,7 +120,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar />
     </>
   )
 }

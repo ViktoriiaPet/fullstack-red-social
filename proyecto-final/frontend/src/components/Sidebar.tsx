@@ -1,10 +1,12 @@
-import React, { useContext } from "react"
+import { useContext } from "react"
 import { ThemeContext } from "../contexts/ThemeContext"
 import Button from "./ui/Button"
 import MiniCalendario from "./miniCalendario"
+import { useSidebarStore } from "../store/sidebarStore"
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = () => {
   const { theme } = useContext(ThemeContext)
+  const { isOpen, close } = useSidebarStore()
 
   // ordenar alfabeticamente
   const categorias = [
@@ -88,7 +90,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         >
           <div className="p-3 d-flex justify-content-between align-items-center">
             <h5 className="text-white">Categorías</h5>
-            <Button onClick={onClose}>Cerrar</Button>
+            <Button onClick={close}>Cerrar</Button>
           </div>
 
           {/* Contenedor principal en móvil */}
