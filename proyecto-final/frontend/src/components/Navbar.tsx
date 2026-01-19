@@ -7,6 +7,8 @@ import UsuarioNavbar from "./UsuarioNavbar"
 import Button from "./ui/Button"
 import ButtonText from "./ui/ButtonText"
 import { FaBars } from "react-icons/fa"
+import { RiLayoutLeftLine } from "react-icons/ri"
+import DropdownPanel from "./ui/DropdownPanel"
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
@@ -18,7 +20,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="flex justify-between items-center w-full fixed top-0 z-50 px-4 py-2 bg-background border-b border-white">
-        <div className="w-full flex items-center justify-between relative ml-5">
+        <div className="w-full flex items-center justify-between relative md:ml-5">
           <a className="flex items-center " href="/">
             <img
               src="/logo.svg"
@@ -36,7 +38,7 @@ const Navbar = () => {
               onClick={openSidebar}
               className="absolute top-30 right-5 bg-transparent hover:bg-transparent border-[3px] border-white px-4 py-2 text-white"
             >
-              #
+              <RiLayoutLeftLine className="text-3xl" />
             </Button>
           </div>
 
@@ -85,9 +87,8 @@ const Navbar = () => {
 
           {/* mobile menu */}
           {menuOpen && (
-            <div className="lg:hidden absolute top-15 right-0 bg-background border border-white rounded p-4 flex flex-col gap-3 z-50 max-w-[90vw] overflow-x-hidden">
+            <DropdownPanel className="lg:hidden">
               <ButtonText onClick={() => navigate("/")}>Inicio</ButtonText>
-
               {user && (
                 <>
                   <ButtonText onClick={() => navigate("/profile")}>Perfil</ButtonText>
@@ -98,12 +99,12 @@ const Navbar = () => {
 
               <ButtonText onClick={() => navigate("/faq")}>FAQ</ButtonText>
               <ButtonText onClick={() => navigate("/history")}>Historia</ButtonText>
-            </div>
+            </DropdownPanel>
           )}
 
           <div className="flex items-center gap-2">
             {/* login / user section */}
-            <div className="flex mr-16 lg:mr-8">
+            <div className="flex lg:mr-8">
               {!user && (
                 <div className="flex gap-3 mx-2">
                   <Button onClick={() => navigate("/login")}>Iniciar</Button>

@@ -18,26 +18,21 @@ const ButtonText: React.FC<ButtonTextProps> = ({
       type={type}
       onClick={onClick}
       className={`
-    text-textPrimary
-    hover:text-accent
-      border-0
-      outline-none
-      bg-transparent
-      px-4 py-2
-      cursor-pointer
-      font-medium
-      transition-colors duration-300
-      focus:outline-none
-    ${className}
-    `}
+        text-textPrimary
+        hover:text-accent
+        border-0
+        outline-none
+        bg-transparent
+        px-4 py-2
+        cursor-pointer
+        font-medium
+        transition-colors duration-300
+        focus:outline-none
+        ${active ? "border-b-2 border-current pb-[0.2rem]" : ""}
+        ${className}
+      `}
     >
-      <span
-        className={`inline-block w-fit transition-colors duration-200 ${
-          active ? "border-b-2 border-current pb-[0.2rem]" : ""
-        }`}
-      >
-        {children}
-      </span>
+      {children}
     </button>
   )
 }

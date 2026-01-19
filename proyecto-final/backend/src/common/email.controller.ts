@@ -79,4 +79,8 @@ export async function sendConfirmationLink(mailData: MailData, token: string) {
     // In development, just log the email
     console.log(`[DEV MODE] Simulando envío de email a ${mailData.to}:`, mailData)
   }
+
+  /*   console.log(`Enviando correo de confirmación de usuario ${mailData.to}`)
+
+  sendMail(mailData); */
 }

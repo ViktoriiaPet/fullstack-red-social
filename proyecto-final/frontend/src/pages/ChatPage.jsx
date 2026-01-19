@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react"
+// eslint-disable-next-line no-unused-vars
 import { io } from "socket.io-client"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { eventoMock } from "../data/mockData"
@@ -9,7 +10,8 @@ import { BsChatRightFill } from "react-icons/bs"
 import Button from "../components/ui/Button"
 import { useAuthStore } from "../store/authStore"
 
-const socket = io("http://localhost:4000")
+/* const socket = io("http://localhost:4000") */
+let socket = null // null para quitar errores en el terminal
 
 export default function ChatPage() {
   const { theme } = useContext(ThemeContext)
@@ -22,6 +24,7 @@ export default function ChatPage() {
   }
 
   // Mensajes iniciales con mock
+  // eslint-disable-next-line no-unused-vars
   const [messages, setMessages] = useState([
     {
       user: "Diego R",
@@ -33,11 +36,12 @@ export default function ChatPage() {
 
   const [message, setMessage] = useState("")
 
+  // descomentar para que funcione
   useEffect(() => {
-    socket.on("chat message", (msg) => {
+    /*     socket.on("chat message", (msg) => {
       setMessages((prev) => [...prev, msg])
     })
-    return () => socket.off("chat message")
+    return () => socket.off("chat message") */
   }, [])
 
   useEffect(() => {
@@ -157,5 +161,3 @@ export default function ChatPage() {
     </>
   )
 }
-
-// por alguna razón que no encuentro solución al enviar un mensaje en el chat hace un salto de scroll

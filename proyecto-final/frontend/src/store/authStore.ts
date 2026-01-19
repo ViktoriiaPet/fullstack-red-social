@@ -1,10 +1,12 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
+import defaultAvatar from "../assets/default-avatar.svg"
 
 type User = {
   name?: string
   email?: string
   id?: string
+  avatar?: string
 }
 
 type AuthState = {
@@ -24,7 +26,10 @@ export const useAuthStore = create<AuthState>()(
 
       login: (user, token = null) =>
         set({
-          user,
+          user: {
+            ...user,
+            avatar: user.avatar || defaultAvatar,
+          },
           token,
           isAuthenticated: true,
         }),

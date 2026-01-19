@@ -1,80 +1,35 @@
-import React, { useContext, useState } from "react"
+import { useState } from "react"
 import ButtonText from "./ui/ButtonText"
-import { ThemeContext } from "../contexts/ThemeContext"
-import { eventoMock } from "../data/mockData"
 import { useAuthStore } from "../store/authStore"
+import DropdownPanel from "./ui/DropdownPanel"
 
 function UsuarioNavbar() {
-  const { theme } = useContext(ThemeContext)
   const user = useAuthStore((state) => state.user)
   const logout = useAuthStore((state) => state.logout)
-  const [open, setOpen] = useState(false)
-  const [hoverName, setHoverName] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
 
-  if (!user) return null // No mostramos nada si no hay usuario
+  if (!user) return null
 
-  // Tomamos los datos mockeados para el usuario
   const usuario = {
-    nombre: user.name || eventoMock.usuario.nombre,
-    avatar: eventoMock.usuario.avatar,
-  }
-
-  const nameStyle = {
-    color: hoverName ? theme.ButtonText.hover.color : theme.ButtonText.base.color,
-    transition: "color 0.3s ease",
-    fontWeight: "bold",
+    nombre: user.name,
+    avatar: user.avatar,
   }
 
   return (
-    <div className="dropdown" style={{ position: "relative" }}>
-      <button
-        className="btn d-flex align-items-center"
-        type="button"
+    <div className="relative">
+      <ButtonText
         onClick={() => setOpen(!open)}
-        style={{
-          backgroundColor: theme.ButtonText.base.backgroundColor,
-          color: theme.ButtonText.base.color,
-          border: theme.ButtonText.base.border,
-        }}
+        className="flex items-center gap-2 bg-transparent text-white border border-white px-4 py-2 rounded"
       >
-        <img
-          src={usuario.avatar}
-          alt={usuario.nombre}
-          style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            marginRight: "0.5rem",
-          }}
-        />
-        <span
-          className="fw-bold"
-          style={nameStyle}
-          onMouseEnter={() => setHoverName(true)}
-          onMouseLeave={() => setHoverName(false)}
-        >
-          {usuario.nombre}
-        </span>
-      </button>
+        <img src={usuario.avatar} alt="avatar" className="w-10 h-10 rounded-full object-cover" />
+
+        <span className="font-bold transition-colors hover:text-accent">{usuario.nombre}</span>
+      </ButtonText>
 
       {open && (
-        <div
-          className="dropdown-menu show"
-          style={{
-            position: "absolute",
-            top: "100%",
-            right: 0,
-            backgroundColor: theme.cardColor,
-            color: theme.textColor,
-            border: `1px solid ${theme.borderColor}`,
-            borderRadius: "0.25rem",
-            minWidth: "150px",
-            boxShadow: "0 0.5rem 1rem rgba(0,0,0,0.15)",
-          }}
-        >
+        <DropdownPanel>
           <ButtonText onClick={logout}>Logout</ButtonText>
-        </div>
+        </DropdownPanel>
       )}
     </div>
   )
