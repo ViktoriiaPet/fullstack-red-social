@@ -1,29 +1,31 @@
-import { useContext } from "react"
-import { ThemeContext } from "../contexts/ThemeContext"
-
 import { useNavigate, useLocation } from "react-router-dom"
 import ButtonText from "./ui/ButtonText"
 
 export default function Footer() {
-  const { theme } = useContext(ThemeContext)
   const navigate = useNavigate()
   const location = useLocation()
+
   return (
     <footer
-      className="footer"
-      style={{
-        backgroundColor: theme.navbarBG,
-        color: theme.white,
-        borderTop: theme.navbarBorder,
-      }}
+      className="
+        ml-75 w-[calc(100%-300px)] p-2
+        bg-background text-white border-t border-surface
+        max-md:ml-0 max-md:w-full
+      "
     >
-      <div className="footer__inner">
+      <div
+        className="
+          max-w-350 mx-auto
+          flex justify-center gap-8 text-sm
+        "
+      >
         <ButtonText
           onClick={() => navigate("/normativa")}
           active={location.pathname === "/normativa"}
         >
           Normativa
         </ButtonText>
+
         <ButtonText
           onClick={() => navigate("/privacidad")}
           active={location.pathname === "/privacidad"}

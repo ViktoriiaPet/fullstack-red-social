@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex justify-between items-center w-full fixed top-0 z-50 px-4 py-2 bg-background border-b border-white">
+      <nav className="flex justify-between items-center w-full fixed top-0 z-50 px-4 py-2 bg-background  border-b border-surface">
         <div className="w-full flex items-center justify-between relative md:ml-5">
           <a className="flex items-center " href="/">
             <img

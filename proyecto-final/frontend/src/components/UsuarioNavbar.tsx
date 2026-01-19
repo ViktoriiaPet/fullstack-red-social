@@ -28,7 +28,7 @@ function UsuarioNavbar() {
 
       {open && (
         <DropdownPanel>
-          <ButtonText onClick={logout}>Logout</ButtonText>
+          <ButtonText onClick={logout}>Cerrar sesión</ButtonText>
         </DropdownPanel>
       )}
     </div>

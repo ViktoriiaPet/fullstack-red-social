@@ -27,7 +27,7 @@ const ButtonText: React.FC<ButtonTextProps> = ({
         cursor-pointer
         font-medium
         transition-colors duration-300
-        focus:outline-none
+        focus:outline-none whitespace-nowrap
         ${active ? "border-b-2 border-current pb-[0.2rem]" : ""}
         ${className}
       `}

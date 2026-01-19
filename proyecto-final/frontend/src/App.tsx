@@ -11,7 +11,7 @@ import CreateEventPage from "./pages/CreateEventPage"
 import ProfilePage from "./pages/ProfilePage"
 import FAQPage from "./pages/FAQPage"
 /* import ChatPage from "./pages/ChatPage" */
-import Footer from "./components/Footer"
+
 import MyEvents from "./pages/MyEvents"
 import WebHistoryPage from "./pages/WebHistoryPage"
 import RequireAuth from "./components/RequireAuth"
@@ -20,6 +20,7 @@ import NormativaPages from "./pages/NormativaPages"
 import PrivacidadPage from "./pages/PrivacidadPage"
 import CookiesPage from "./pages/CookiesPage"
 import CookieConsent from "./components/CookieConsent"
+import Footer from "./components/Footer"
 
 function App() {
   const { theme } = useContext(ThemeContext)

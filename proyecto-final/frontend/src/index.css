@@ -17,10 +17,6 @@ body {
   margin: 0 auto; /* centra el feed dentro del espacio libre */
 }
 
-.navbar .btn-user {
-  margin-right: 2rem;
-}
-
 .logo:hover {
   filter: brightness(0) saturate(100%) invert(41%) sepia(90%) saturate(399%) hue-rotate(335deg)
     brightness(92%) contrast(92%);
@@ -79,22 +75,6 @@ body {
   filter: invert(0); /* flecha blanca */
 }
 
-/* FOOTER alineado con el sidebar */
-.footer {
-  margin-left: 300px; /*  evita que se meta debajo del sidebar */
-  padding: 10px;
-  width: calc(100% - 300px);
-}
-
-.footer__inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  font-size: 0.9rem;
-}
-
 .layout-wrapper {
   min-height: 100vh;
   display: flex;
@@ -120,17 +100,7 @@ body {
     max-width: 100%;
   }
 
-  .navbar .btn-user {
-    margin-right: 4rem;
-  }
-
   .eventPage {
     grid-template-columns: repeat(1, 1fr);
-  }
-
-  /* movil: sidebar desaparece, footer full width */
-  .footer {
-    margin-left: 0;
-    width: 100vw;
   }
 }
