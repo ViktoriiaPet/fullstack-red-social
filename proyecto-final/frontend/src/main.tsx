@@ -6,6 +6,7 @@ import { ThemeProvider } from "./contexts/ThemeContext.jsx"
 import { BrowserRouter } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
+import ScrollToTop from "./components/ScrollToTop"
 
 const rootElement = document.getElementById("root")
 
@@ -17,6 +18,7 @@ createRoot(rootElement).render(
   <StrictMode>
     <ThemeProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <App />
       </BrowserRouter>
     </ThemeProvider>
