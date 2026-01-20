@@ -1,129 +1,71 @@
-import { useContext } from "react"
-import { ThemeContext } from "../contexts/ThemeContext"
-import Button from "./ui/Button"
-import MiniCalendario from "./miniCalendario"
 import { useSidebarStore } from "../store/sidebarStore"
+import Button from "./ui/Button"
+import CompactCalendar from "./CompactCalendar"
 
-const Sidebar = () => {
-  const { theme } = useContext(ThemeContext)
+const categorias = [
+  "Arte",
+  "Aventura",
+  "Bienestar",
+  "Ciencia",
+  "Danza",
+  "Deporte",
+  "Espiritualidad",
+  "Frikis",
+  "Gastronomía",
+  "Infantiles",
+  "Manualidades",
+  "Música",
+  "Populares",
+  "Teatro",
+  "Temático",
+  "Tradicional",
+  "Singles",
+  "Naturaleza",
+  "Cultura",
+]
+
+export default function Sidebar() {
   const { isOpen, close } = useSidebarStore()
-
-  // ordenar alfabeticamente
-  const categorias = [
-    "Arte",
-    "Aventura",
-    "Bienestar",
-    "Ciencia",
-    "Danza",
-    "Deporte",
-    "Espiritualidad",
-    "Frikis",
-    "Gastronomía",
-    "Infantiles",
-    "Manualidades",
-    "Música",
-    "Populares",
-    "Teatro",
-    "Temático",
-    "Tradicional",
-    "Singles",
-    "Naturaleza",
-    "Cultura",
-  ]
 
   return (
     <>
-      {/* Sidebar fijo en pantallas grandes */}
-      <div
-        className="d-none d-lg-flex flex-column flex-shrink-0 px-5 pt-4 vh-100 sidebar position-fixed"
-        style={{
-          top: 60,
-          width: "300px",
-          backgroundColor: theme.sidebarColor,
-          color: theme.textColor,
-          borderRight: theme.sidebarBorder,
-        }}
-      >
-        {/* Título arriba */}
-        <h5 className="mb-3 mx-2 text-white">Categorías</h5>
-
-        {/* Contenedor principal: debe permitir que su hijo haga scroll */}
+      {/* backdrop only on mobile */}
+      {isOpen && (
         <div
-          className="d-flex flex-column flex-grow-1"
-          style={{
-            paddingRight: "1rem",
-            minHeight: 0, // imprescindible para que el hijo con overflow pueda scrollear
-          }}
-        >
-          {/* Lista scrollable de botones */}
+          className="
+            fixed inset-0 bg-black/40 z-40 lg:hidden
+          "
+          onClick={close}
+        />
+      )}
+
+      <aside
+        className={`
+          fixed top-15 left-0
+          w-[300px] h-[calc(100vh-60px)]
+          bg-background text-white border-r border-surface
+          px-14 pt-4 z-40 flex flex-col lg:translate-x-0
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          transition-transform duration-300
+        `}
+      >
+        <h5 className="mb-3 text-white">Categorías</h5>
+
+        <div className="flex flex-col grow min-h-0">
           <div
-            className="d-flex flex-column gap-2 sidebar-scroll"
-            style={{
-              overflowY: "auto",
-              flexGrow: 1, //  ocupa todo el espacio disponible entre el título y el calendario
-              paddingBottom: "0.5rem",
-              minHeight: 0, //  asegura que el overflow funcione dentro de flex
-            }}
+            className="
+              flex flex-col gap-2 grow min-h-0 overflow-y-auto
+              custom-scroll pr-3
+            "
           >
             {categorias.map((categoria) => (
               <Button key={categoria}>{categoria}</Button>
             ))}
           </div>
 
-          {/* MINI CALENDARIO fijo debajo */}
-          <MiniCalendario />
-
-          {/* Espacio al final del sidebar */}
-          <div style={{ height: "2rem" }}></div>
+          <CompactCalendar />
         </div>
-      </div>
-
-      {/* Sidebar overlay en móvil */}
-      {isOpen && (
-        <div
-          className="d-lg-none position-fixed top-0 start-0 vh-100 vw-100"
-          style={{
-            backgroundColor: theme.sidebarColor,
-            color: theme.textColor,
-            zIndex: 1050,
-          }}
-        >
-          <div className="p-3 d-flex justify-content-between align-items-center">
-            <h5 className="text-white">Categorías</h5>
-            <Button onClick={close}>Cerrar</Button>
-          </div>
-
-          {/* Contenedor principal en móvil */}
-          <div
-            className="d-flex flex-column p-3"
-            style={{
-              height: "calc(100% - 60px)", //  resto de la pantalla bajo la barra superior
-              minHeight: 0, // necesario para que el hijo con overflow scrollee
-            }}
-          >
-            {/* Lista scrollable de botones */}
-            <div
-              className="d-flex flex-column gap-2"
-              style={{
-                overflowY: "auto",
-                flexGrow: 1,
-                paddingBottom: "0.5rem",
-                minHeight: 0,
-                alignItems: "flex-start",
-              }}
-            >
-              {categorias.map((categoria) => (
-                <Button key={categoria}>{categoria}</Button>
-              ))}
-            </div>
-
-            {/* MINI CALENDARIO fijo debajo en móvil */}
-            <MiniCalendario />
-          </div>
-        </div>
-      )}
+      </aside>
     </>
   )
 }
-
-export default Sidebar

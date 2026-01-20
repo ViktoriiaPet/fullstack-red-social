@@ -10,7 +10,7 @@ export default function Footer() {
       className="
         ml-75 w-[calc(100%-300px)] p-2
         bg-background text-white border-t border-surface
-        max-md:ml-0 max-md:w-full
+      max-lg:ml-0 max-lg:w-full
       "
     >
       <div

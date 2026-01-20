@@ -13,7 +13,9 @@ import DropdownPanel from "./ui/DropdownPanel"
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
   const user = useAuthStore((state) => state.user)
-  const openSidebar = useSidebarStore((state) => state.open)
+  const isOpen = useSidebarStore((state) => state.isOpen)
+  const open = useSidebarStore((state) => state.open)
+  const close = useSidebarStore((state) => state.close)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -35,8 +37,8 @@ const Navbar = () => {
           <div className="lg:hidden">
             <Button
               type="button"
-              onClick={openSidebar}
-              className="absolute top-30 right-5 bg-transparent hover:bg-transparent border-[3px] border-white px-4 py-2 text-white"
+              onClick={isOpen ? close : open}
+              className=" fixed bottom-12 right-5 bg-transparent hover:bg-transparent border-[3px] border-white px-4 py-2 text-white z-50 "
             >
               <RiLayoutLeftLine className="text-3xl" />
             </Button>
