@@ -1,5 +1,5 @@
 import Card from "../components/Card"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 import AlertaPublica from "../components/AlertaPublica"
 import { useAuthStore } from "../store/authStore"
 // import { getJSON } from "../utils/apiclient"
@@ -10,7 +10,7 @@ function HomePage() {
   return (
     <>
       {!user && <AlertaPublica />}
-      <Titulo title="PUBLICACIONES" />
+      <Title title="PUBLICACIONES" />
       <>
         <div className="row g-4  w-auto">
           <div className="col-xxl-4 col-xl-6 col-md-6 col-sm-12">

@@ -1,9 +1,9 @@
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 
 function ProfilePage() {
   return (
     <div>
-      <Titulo title="Profile Page" />
+      <Title title="Profile Page" />
     </div>
   )
 }

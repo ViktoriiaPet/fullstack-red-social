@@ -7,7 +7,7 @@ import SocialIcon from "../components/SocialIcon"
 import UsuarioInfo from "../components/UsuarioInfo"
 import { eventoMock } from "../data/mockData"
 import AccionesEvento from "../components/AccionesEvento"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 import ChatPage from "./ChatPage"
 import { RiTwitterXFill } from "react-icons/ri"
 import { SiInstagram } from "react-icons/si"
@@ -45,7 +45,7 @@ function EventPage() {
 
   return (
     <>
-      <Titulo title="EVENTOS" />
+      <Title title="EVENTOS" />
       <div
         className="container eventPage"
         style={{
@@ -70,13 +70,13 @@ function EventPage() {
           {/* imagen del evento */}
           <img
             src={evento.img} // usamos la imagen del mock
-            alt={evento.titulo}
+            alt={evento.Title}
             style={{ width: "100%", height: "400px", objectFit: "cover" }}
           />
 
           {/* contenido del evento */}
           <div className="p-4">
-            <h1>{evento.titulo}</h1>
+            <h1>{evento.Title}</h1>
             <p style={{ fontSize: "1.1rem", lineHeight: "1.6", marginTop: "2rem" }}>
               {evento.descripcion}
             </p>

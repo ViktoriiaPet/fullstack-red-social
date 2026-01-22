@@ -1,13 +1,13 @@
 import { useContext } from "react"
 import { ThemeContext } from "../contexts/ThemeContext"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 import logo from "/logo.png"
 
 const WebHistoryPage = () => {
   const { theme } = useContext(ThemeContext)
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
-      {/*       <Titulo title="ARMAND EVENTS" /> */}
+      {/*       <Title title="ARMAND EVENTS" /> */}
       <img src={logo} alt="logo Armand Events" width="200" height="200" className="mt-4" />
 
       <div className="mx-auto mt-4" style={{ maxWidth: "600px", width: "100%" }}>

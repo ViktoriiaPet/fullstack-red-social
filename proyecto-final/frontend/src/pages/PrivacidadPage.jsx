@@ -1,12 +1,12 @@
 import { useContext } from "react"
 import { ThemeContext } from "../contexts/ThemeContext"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 
 const PrivacidadPage = () => {
   const { theme } = useContext(ThemeContext)
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
-      <Titulo title="PRIVACIDAD" />
+      <Title title="PRIVACIDAD" />
 
       <div className="mx-auto mt-4" style={{ maxWidth: "600px", width: "100%" }}>
         <div

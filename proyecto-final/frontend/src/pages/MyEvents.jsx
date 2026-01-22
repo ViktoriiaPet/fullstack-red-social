@@ -1,10 +1,10 @@
 import Card from "../components/Card"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 
 const MyEvents = () => {
   return (
     <>
-      <Titulo title="AGENDA" />
+      <Title title="AGENDA" />
 
       <div className="row g-4 justify-content-center w-100">
         <div className="col-xxl-4 col-xl-6 col-md-6 col-sm-12">

@@ -17,7 +17,7 @@ const Card = () => {
   // usamos directamente los datos del mock
 
   const {
-    titulo,
+    Title,
     descripcion,
     ubicacion,
     fechas,
@@ -81,7 +81,7 @@ const Card = () => {
         {/* contenido */}
         <div className="card-body d-flex flex-column h-100">
           <div className="flex-grow-1">
-            <h5 className="card-title">{titulo}</h5>
+            <h5 className="card-title">{Title}</h5>
 
             <p
               className="card-text"

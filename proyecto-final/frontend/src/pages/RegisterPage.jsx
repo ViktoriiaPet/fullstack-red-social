@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react"
 import Modal from "bootstrap/js/dist/modal"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { postJSON } from "../utils/apiclient"
 import { BsEye, BsEyeSlash } from "react-icons/bs"
@@ -175,7 +175,7 @@ function RegisterPage() {
         }}
       >
         <div className="card-body">
-          <Titulo title="Página de registro" />
+          <Title title="Página de registro" />
 
           {/* formulario de login */}
           <form onSubmit={handleSubmit}>

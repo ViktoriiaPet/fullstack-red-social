@@ -2,7 +2,7 @@ import eventImg from "../assets/event.jpg"
 import userAvatar from "../assets/user.jpg"
 
 export const eventoMock = {
-  titulo: "Festival de Música Urbana",
+  Title: "Festival de Música Urbana",
   descripcion:
     "Únete a nosotros para una noche llena de ritmo, talento local y buena vibra. Disfruta de actuaciones en vivo de artistas emergentes y reconocidos, con estilos que van desde el hip hop y el reguetón hasta fusiones innovadoras de música electrónica y danza urbana. Habrá espacios interactivos para el público, food trucks con gastronomía internacional, y zonas chill-out para relajarse entre concierto y concierto. Este festival busca crear una experiencia única donde la música, la cultura y la comunidad se encuentren en un mismo lugar, celebrando la diversidad y la creatividad de la escena urbana.",
   organizador: "Juan Pérez",

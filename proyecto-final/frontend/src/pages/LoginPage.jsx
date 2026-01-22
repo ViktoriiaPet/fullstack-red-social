@@ -1,6 +1,6 @@
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 import { useAuthStore } from "../store/authStore"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { postJSON } from "../utils/apiclient"
@@ -97,7 +97,7 @@ function LoginPage() {
       >
         <div className="card-body">
           {/* título de la página */}
-          <Titulo title="Inicio de sesión" />
+          <Title title="Inicio de sesión" />
 
           {/* formulario de login */}
           <form onSubmit={handleSubmit}>

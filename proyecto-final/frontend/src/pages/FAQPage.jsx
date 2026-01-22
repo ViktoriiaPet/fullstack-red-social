@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 import { ThemeContext } from "../contexts/ThemeContext"
 
 function FAQPage() {
@@ -132,7 +132,7 @@ function FAQPage() {
 
   return (
     <div className="container my-4">
-      <Titulo title="FAQ (Preguntas frecuentes)" />
+      <Title title="FAQ (Preguntas frecuentes)" />
 
       <div className="accordion" id="accordionFAQ">
         {faqs.map((faq, index) => (

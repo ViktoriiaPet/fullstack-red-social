@@ -3,7 +3,7 @@ import { useEffect, useState, useContext, useRef } from "react"
 import { io } from "socket.io-client"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { eventoMock } from "../data/mockData"
-import Titulo from "../components/Titulo"
+import Title from "../components/Title"
 
 import MensajeBurbuja from "../components/MensajeBurbuja"
 import { BsChatRightFill } from "react-icons/bs"
@@ -70,7 +70,7 @@ export default function ChatPage() {
 
   return (
     <>
-      {/*    <Titulo title="Chat del Evento" /> */}
+      {/*    <Title title="Chat del Evento" /> */}
 
       {/* <div className="mx-auto" style={{ maxWidth: "600px", width: "100%" }}> */}
       <div>
