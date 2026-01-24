@@ -19,8 +19,8 @@ export default function ChatPage() {
   const chatEndRef = useRef(null)
 
   const usuarioActual = {
-    nombre: user?.name || eventoMock.usuario.nombre,
-    avatar: eventoMock.usuario.avatar,
+    nombre: user?.name || eventoMock.user.name,
+    avatar: eventoMock.user.avatar,
   }
 
   // Mensajes iniciales con mock
@@ -30,7 +30,7 @@ export default function ChatPage() {
       user: "Diego R",
       content: "¡Hola! Bienvenidos al chat del evento.",
       timestamp: "18:45",
-      avatar: eventoMock.usuario.avatar,
+      avatar: eventoMock.user.avatar,
     },
   ])
 

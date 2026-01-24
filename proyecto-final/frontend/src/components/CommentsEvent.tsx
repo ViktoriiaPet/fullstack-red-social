@@ -26,7 +26,7 @@ const mockComentariosDB = [
   },
 ]
 
-const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
+const CommentsEvent = ({ admin = true, user = "EstoEsUnUsuario" }) => {
   const { theme } = useContext(ThemeContext)
 
   const [comentarios, setComentarios] = useState(
@@ -321,4 +321,4 @@ const ComentariosEvento = ({ admin = true, user = "EstoEsUnUsuario" }) => {
   )
 }
 
-export default ComentariosEvento
+export default CommentsEvent

@@ -2,6 +2,7 @@ import Card from "../components/Card"
 import Title from "../components/Title"
 import AlertaPublica from "../components/AlertaPublica"
 import { useAuthStore } from "../store/authStore"
+import { eventoMock } from "../data/mockData"
 // import { getJSON } from "../utils/apiclient"
 
 function HomePage() {
@@ -14,13 +15,13 @@ function HomePage() {
       <>
         <div className="row g-4  w-auto">
           <div className="col-xxl-4 col-xl-6 col-md-6 col-sm-12">
-            <Card />
+            <Card event={eventoMock} mode="compact" />
           </div>
           <div className="col-xxl-4 col-xl-6 col-md-6 col-sm-12">
-            <Card />
+            <Card event={eventoMock} mode="compact" />
           </div>
           <div className="col-xxl-4 col-xl-6 col-md-6 col-sm-12">
-            <Card />
+            <Card event={eventoMock} mode="compact" />
           </div>
         </div>
       </>

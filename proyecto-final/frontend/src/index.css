@@ -83,12 +83,6 @@ body {
   flex: 1; /* este espacio crece para empujar el footer al fondo */
 }
 
-.eventPage {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
 @media (max-width: 991.98px) {
   .main-content {
     margin-left: 0;
@@ -96,9 +90,5 @@ body {
   }
   .main-content__inner {
     max-width: 100%;
-  }
-
-  .eventPage {
-    grid-template-columns: repeat(1, 1fr);
   }
 }

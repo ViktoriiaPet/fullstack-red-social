@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { useAuthStore } from "../store/authStore"
 import { useSidebarStore } from "../store/sidebarStore"
 import Sidebar from "./Sidebar"
-import UsuarioNavbar from "./UsuarioNavbar"
+import UserNavbar from "./UserNavbar"
 import Button from "./ui/Button"
 import ButtonText from "./ui/ButtonText"
 import { FaBars } from "react-icons/fa"
@@ -114,7 +114,7 @@ const Navbar = () => {
                 </div>
               )}
 
-              {user && <UsuarioNavbar />}
+              {user && <UserNavbar />}
             </div>
 
             {/* burger menu button */}
