@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import CommentsEvent from "../components/CommentsEvent"
 import Title from "../components/Title"
-import ChatPage from "./ChatPage"
+import EventChat from "../components/chat/EventChat.js"
 import Card from "../components/Card"
 import { eventoMock } from "../data/mockData"
 
@@ -16,18 +16,16 @@ function EventPage() {
     <div className="w-full">
       <Title title="EVENTOS" />
 
-      <div className="grid grid-cols-2 gap-5 md:grid-cols-2 w-full px-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2">
         <Card mode="full" event={event} />
 
         {/* chat */}
-        <div className="">
-          <ChatPage />
-        </div>
+        <EventChat />
       </div>
 
       {/* comments */}
-      <div className="mt-8">
-        <CommentsEvent comentarios={event.comentarios} />
+      <div className="mt-10 xl:mt-0">
+        <CommentsEvent />
       </div>
     </div>
   )

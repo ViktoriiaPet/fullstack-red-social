@@ -1,15 +1,25 @@
-import React, { useContext, useState, useEffect, useRef } from "react"
-import { ThemeContext } from "../contexts/ThemeContext"
-
+import { useState, useEffect, useRef } from "react"
+import Button from "./ui/Button"
 import { BsChatRightFill } from "react-icons/bs"
 import { FaRegClock } from "react-icons/fa"
 import { AiFillLike } from "react-icons/ai"
 import { RiDeleteBin6Fill } from "react-icons/ri"
 import { BiSolidPencil } from "react-icons/bi"
-import Button from "./ui/Button"
 
-// Mock DB inicial con IDs únicos
-const mockComentariosDB = [
+interface Comment {
+  id: string
+  usuario: string
+  mensaje: string
+  fecha: Date
+  likes: string[]
+}
+
+interface CommentsEventProps {
+  admin?: boolean
+  user?: string
+}
+
+const mockComentariosDB: Comment[] = [
   {
     id: crypto.randomUUID(),
     usuario: "Sandra",
@@ -26,23 +36,16 @@ const mockComentariosDB = [
   },
 ]
 
-const CommentsEvent = ({ admin = true, user = "EstoEsUnUsuario" }) => {
-  const { theme } = useContext(ThemeContext)
-
-  const [comentarios, setComentarios] = useState(
-    [...mockComentariosDB].sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+function CommentsEvent({ admin = false, user = "EstoEsUnUsuario" }: CommentsEventProps) {
+  const [comentarios, setComentarios] = useState<Comment[]>(
+    [...mockComentariosDB].sort((a, b) => b.fecha.getTime() - a.fecha.getTime())
   )
 
   const [nuevoComentario, setNuevoComentario] = useState("")
-  const [editID, setEditID] = useState(null)
+  const [editID, setEditID] = useState<string | null>(null)
   const [editValue, setEditValue] = useState("")
-  const editRef = useRef(null)
+  const editRef = useRef<HTMLTextAreaElement | null>(null)
 
-  useEffect(() => {
-    console.log("Comentarios actualizados:", comentarios)
-  }, [comentarios])
-
-  // Auto-resize textarea edición
   useEffect(() => {
     if (editRef.current) {
       editRef.current.style.height = "auto"
@@ -50,11 +53,10 @@ const CommentsEvent = ({ admin = true, user = "EstoEsUnUsuario" }) => {
     }
   }, [editValue, editID])
 
-  // Enviar comentario
   const manejarEnvio = () => {
     if (nuevoComentario.trim() === "") return
 
-    const comentario = {
+    const comentario: Comment = {
       id: crypto.randomUUID(),
       usuario: user,
       mensaje: nuevoComentario,
@@ -62,15 +64,14 @@ const CommentsEvent = ({ admin = true, user = "EstoEsUnUsuario" }) => {
       likes: [],
     }
 
-    // Insertar arriba y reordenar
     setComentarios((prev) =>
-      [comentario, ...prev].sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+      [comentario, ...prev].sort((a, b) => b.fecha.getTime() - a.fecha.getTime())
     )
 
     setNuevoComentario("")
   }
 
-  const manejarLike = (id) => {
+  const manejarLike = (id: string) => {
     setComentarios((prev) =>
       prev.map((c) =>
         c.id === id
@@ -85,18 +86,18 @@ const CommentsEvent = ({ admin = true, user = "EstoEsUnUsuario" }) => {
     )
   }
 
-  const manejarBorrar = (id) => {
+  const manejarBorrar = (id: string) => {
     setComentarios((prev) => prev.filter((c) => c.id !== id))
   }
 
-  const manejarEditar = (id) => {
+  const manejarEditar = (id: string) => {
     const comentario = comentarios.find((c) => c.id === id)
     if (!comentario) return
     setEditID(id)
     setEditValue(comentario.mensaje)
-    // focus del textarea tras setear editID (opcional)
+
     setTimeout(() => {
-      if (editRef.current) editRef.current.focus()
+      editRef.current?.focus()
     }, 0)
   }
 
@@ -110,207 +111,118 @@ const CommentsEvent = ({ admin = true, user = "EstoEsUnUsuario" }) => {
   }
 
   const comentariosOrdenados = [...comentarios].sort(
-    (a, b) => new Date(b.fecha) - new Date(a.fecha)
+    (a, b) => b.fecha.getTime() - a.fecha.getTime()
   )
 
   return (
     <>
-      <div
-        className="p-3 mt-3"
-        style={{
-          backgroundColor: theme.cardColor,
-          borderRadius: "8px",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
-          border: `2px solid ${theme.borderColor}`,
-        }}
-      >
-        <label
-          style={{
-            fontWeight: "bold",
-            marginBottom: "8px",
-            display: "block",
-            color: theme.titleColor,
-          }}
-        >
-          Añadir un comentario
-        </label>
+      {/* box to add a comment */}
+      <div className="p-4 mt-3 bg-surface border-2 border-white rounded-lg shadow-md">
+        <label className="block font-bold mb-2 text-textPrimary">Añadir un comentario</label>
 
         <textarea
-          className="form-control"
           value={nuevoComentario}
           onChange={(e) => {
             let valor = e.target.value
             if (valor.length <= 400) {
-              const primeraLetraI = valor.search(/[a-zA-Z]/)
-              if (primeraLetraI !== -1) {
-                valor =
-                  valor.slice(0, primeraLetraI) +
-                  valor.charAt(primeraLetraI).toUpperCase() +
-                  valor.slice(primeraLetraI + 1)
+              const idx = valor.search(/[a-zA-Z]/)
+              if (idx !== -1) {
+                valor = valor.slice(0, idx) + valor.charAt(idx).toUpperCase() + valor.slice(idx + 1)
               }
               setNuevoComentario(valor)
             }
           }}
           placeholder="Escribe tu comentario aquí..."
-          rows="3"
-          style={{
-            backgroundColor: theme.dejarComentario,
-            color: theme.black,
-            border: `2px solid ${theme.borderColor}`,
-            marginBottom: "1rem",
-            borderRadius: "6px",
-            resize: "none",
-          }}
+          className="
+            w-full 
+            bg-background 
+            text-textPrimary 
+            border-2 
+            border-white 
+            rounded-md 
+            p-2 
+            mb-4 
+            min-h-24   
+            max-h-24        
+            overflow-y-auto 
+            resize-none     
+          "
         />
 
-        <Button onClick={manejarEnvio}>Enviar comentario</Button>
+        <Button onClick={manejarEnvio}>Enviar</Button>
       </div>
 
-      <div
-        className="card mt-3"
-        style={{
-          backgroundColor: theme.cardColor,
-          color: theme.textColor,
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-          overflow: "hidden",
-          border: `2px solid ${theme.borderColor}`,
-        }}
-      >
-        <div
-          className="card-header d-flex align-items-center"
-          style={{
-            fontWeight: "bold",
-            fontSize: "1.3rem",
-            backgroundColor: theme.up,
-            color: theme.white || "#fff",
-            padding: "0.75rem 1rem",
-            borderBottom: `2px solid ${theme.borderColor}`,
-            letterSpacing: "0.5px",
-          }}
-        >
-          <span style={{ marginTop: "-3px", marginRight: "8px" }}>
-            <BsChatRightFill />
-          </span>{" "}
+      {/* comments list */}
+      <div className="mt-3 bg-surface border-2 border-white rounded-lg shadow-lg overflow-hidden">
+        <div className="flex items-center gap-2 bg-main text-textPrimary font-bold text-lg px-4 py-3 border-b-2 border-white">
+          <BsChatRightFill className="mt-[2px]" />
           <span>Comentarios</span>
         </div>
 
         {comentarios.length === 0 ? (
-          <div className="card-body" style={{ fontStyle: "italic", opacity: 0.8 }}>
-            No hay comentarios aún.
-          </div>
+          <div className="py-4 italic opacity-80 text-textSecondary">No hay comentarios aún.</div>
         ) : (
-          <ul className="list-group list-group-flush">
+          <ul className="px-4 m-0 list-none">
             {comentariosOrdenados.map((c) => (
-              <li
-                key={c.id}
-                className="list-group-item"
-                style={{
-                  backgroundColor: theme.cardColor,
-                  color: theme.textColor,
-                  border: "none",
-                  borderBottom: `1px solid ${theme.borderColor}`,
-                  padding: "0.75rem 1rem",
-                }}
-              >
-                <div>
-                  <strong style={{ color: theme.textColor }}>{c.usuario}:</strong>
+              <li key={c.id} className="border-b border-white py-4 text-textPrimary">
+                <strong>{c.usuario}:</strong>
 
-                  {editID === c.id ? (
-                    <>
-                      <textarea
-                        ref={editRef}
-                        value={editValue}
-                        onChange={(e) => setEditValue(e.target.value)}
-                        style={{
-                          width: "100%",
-                          fontSize: "1rem",
-                          resize: "none",
-                          overflow: "hidden",
-                          marginTop: "4px",
-                        }}
-                      />
+                {editID === c.id ? (
+                  <>
+                    <textarea
+                      ref={editRef}
+                      value={editValue}
+                      onChange={(e) => setEditValue(e.target.value)}
+                      className="w-full bg-background text-textPrimary rounded-md p-2 mt-2 resize-none overflow-hidden"
+                    />
 
-                      <Button onClick={aplicarCambios}>Aplicar cambios</Button>
-                    </>
-                  ) : (
-                    <div
-                      style={{
-                        background: "#9569FF",
-                        color: theme.white,
-                        borderRadius: "6px",
-                        padding: "6px",
-                        whiteSpace: "pre-wrap",
-                        wordBreak: "break-word",
-                        marginTop: "4px",
-                      }}
-                    >
-                      {c.mensaje}
-                    </div>
-                  )}
-
-                  <div
-                    className="d-flex align-items-center"
-                    style={{ fontSize: "0.75rem", opacity: 0.7, marginTop: "6px" }}
-                  >
-                    <span style={{ marginTop: "-3px", marginRight: "4px" }}>
-                      <FaRegClock />
-                    </span>
-                    <span>
-                      {new Date(c.fecha).toLocaleString("es-ES", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        day: "2-digit",
-                        month: "short",
-                      })}
-                    </span>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
-                    <Button
-                      style={{
-                        fontSize: "16px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "4px",
-                        padding: "4px 8px",
-                      }}
-                      onClick={() => manejarLike(c.id)}
-                    >
-                      <AiFillLike /> {c.likes.length}
+                    <Button onClick={aplicarCambios} className="mt-2">
+                      Aplicar cambios
                     </Button>
-
-                    {(admin || c.usuario === user) && editID !== c.id && (
-                      <>
-                        <Button
-                          style={{
-                            fontSize: "16px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: "6px",
-                          }}
-                          onClick={() => manejarEditar(c.id)}
-                        >
-                          <BiSolidPencil />
-                        </Button>
-
-                        <Button
-                          style={{
-                            fontSize: "16px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: "6px",
-                          }}
-                          onClick={() => manejarBorrar(c.id)}
-                        >
-                          <RiDeleteBin6Fill />
-                        </Button>
-                      </>
-                    )}
+                  </>
+                ) : (
+                  <div className="bg-background text-textPrimary rounded-md p-2 mt-2 whitespace-pre-wrap break-words">
+                    {c.mensaje}
                   </div>
+                )}
+
+                <div className="flex items-center text-xs text-textSecondary mt-2 gap-1">
+                  <FaRegClock className="mt-[2px]" />
+                  <span>
+                    {new Date(c.fecha).toLocaleString("es-ES", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      day: "2-digit",
+                      month: "short",
+                    })}
+                  </span>
+                </div>
+
+                <div className="flex gap-2 mt-3">
+                  <Button
+                    onClick={() => manejarLike(c.id)}
+                    className="flex items-center gap-1 px-2 py-1 text-sm"
+                  >
+                    <AiFillLike /> {c.likes.length}
+                  </Button>
+
+                  {(admin || c.usuario === user) && editID !== c.id && (
+                    <>
+                      <Button
+                        onClick={() => manejarEditar(c.id)}
+                        className="flex items-center px-2 py-1 text-sm"
+                      >
+                        <BiSolidPencil />
+                      </Button>
+
+                      <Button
+                        onClick={() => manejarBorrar(c.id)}
+                        className="flex items-center px-2 py-1 text-sm"
+                      >
+                        <RiDeleteBin6Fill />
+                      </Button>
+                    </>
+                  )}
                 </div>
               </li>
             ))}
