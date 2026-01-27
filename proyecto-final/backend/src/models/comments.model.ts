@@ -6,6 +6,7 @@ export default (sequelize: Sequelize) => {
     {
       idComment: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
       content: {type: DataTypes.TEXT,allowNull: false},
+      userId: {type: DataTypes.INTEGER,allowNull: false},
       borrado: {type: DataTypes.BOOLEAN,allowNull: false,defaultValue: false},
       created_at: {type: DataTypes.DATE,allowNull: false,defaultValue: DataTypes.NOW},
       updated_at: {type: DataTypes.DATE,allowNull: false,defaultValue: DataTypes.NOW},

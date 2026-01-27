@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from "sequelize";
 
 export interface UserAttributes {
-  id: number;
+  idUser: number;
   UUID: string;
   username: string;
   nombre?: string;

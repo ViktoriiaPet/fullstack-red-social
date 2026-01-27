@@ -1,6 +1,8 @@
 import db from "../models/index.js";
 import { Request,  Response } from "express";
+import { CommentInstance } from "../types/comment.js";
 const Comments = db.Comments;
+
 
 // Obtener todos los comentarios (incluye eliminados si se solicita)
 export const getAllComments = async (req:Request, res:Response) => {
@@ -36,10 +38,12 @@ export const getCommentById = async (req:Request, res:Response) => {
 
 // Crear un comentario
 export const createComment = async (req:Request, res:Response) => {
+  console.log("CREATE COMMENT HIT", req.user);
   try {
     const { content } = req.body;
 
-    const newComment = await Comments.create({ content });
+    const newComment = await Comments.create({  content,
+  userId: req.user!.idUser });
 
     res.status(201).json(newComment);
   } catch (error) {
@@ -53,11 +57,16 @@ export const updateComment = async (req:Request, res:Response) => {
   try {
     const { content } = req.body;
 
-    const comment = await Comments.findByPk(req.params.idComment);
+    const comment = await Comments.findByPk(req.params.id) as CommentInstance;
 
     if (!comment) {
       return res.status(404).json({ error: "Comment not found" });
     }
+
+    if (comment.userId !== req.user!.idUser && req.user!.role !== "admin") {
+      return res.status(403).json({ error: "Not allowed" });
+}
+
 
     await comment.update({ content });
 
@@ -70,15 +79,21 @@ export const updateComment = async (req:Request, res:Response) => {
 
 // Soft delete del comentario
 export const softDeleteComment = async (req:Request, res:Response) => {
+  
   try {
-    const comment = await Comments.findByPk(req.params.idComment);
+    console.log("PARAMS:", req.params);
+
+    const comment = await Comments.findByPk(req.params.id) as CommentInstance;
 
     if (!comment) {
       return res.status(404).json({ error: "Comment not found" });
     }
 
-    await Comments.destroy(); // Esto asigna deleted_at automáticamente
+    if (comment.userId !== req.user!.idUser && req.user!.role !== "admin") {
+    return res.status(403).json({ error: "Not allowed" });
+}
 
+    await comment.destroy();
     res.json({ message: "Comment deleted (soft delete applied)" });
   } catch (error) {
     console.error("Error deleting comment:", error);
@@ -102,15 +117,19 @@ export const hardDeleteComment = async (req:Request, res:Response) => {
 // Restaurar comentario eliminado (soft delete)
 export const restoreComment = async (req:Request, res:Response) => {
   try {
-    const comment = await Comments.findByPk(req.params.idComment, {
+    const comment = await Comments.findByPk(req.params.id, {
       paranoid: false
-    });
+    }) as CommentInstance;
 
     if (!comment) {
       return res.status(404).json({ error: "Comment not found" });
     }
 
-    await Comments.restore();
+    
+    if (comment.userId !== req.user!.idUser && req.user!.role !== "admin") {
+    return res.status(403).json({ error: "Not allowed" });
+}
+    await comment.restore();
 
     res.json({ message: "Comment restored" });
   } catch (error) {
