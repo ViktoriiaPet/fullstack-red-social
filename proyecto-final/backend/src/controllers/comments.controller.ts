@@ -36,10 +36,12 @@ export const getCommentById = async (req:Request, res:Response) => {
 
 // Crear un comentario
 export const createComment = async (req:Request, res:Response) => {
+  console.log("CREATE COMMENT HIT", req.user);
   try {
     const { content } = req.body;
 
-    const newComment = await Comments.create({ content });
+    const newComment = await Comments.create({  content,
+  userId: req.user!.idUser });
 
     res.status(201).json(newComment);
   } catch (error) {

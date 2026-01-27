@@ -56,12 +56,21 @@ export const loginUser = async (req:Request, res:Response) => {
 
 
     const token = jwt.sign(
-      { id: usuario.id, nombre: usuario.nombre, role: usuario.role  },
-      jwtSecret,
+{ idUser: usuario.idUser, username: usuario.username, role: usuario.role },
+  jwtSecret,
       { expiresIn: "1h" }
     );
 
-    res.json({ mensaje: "Login exitoso",username: usuario.username, token });
+    res.json({
+  mensaje: "Login exitoso",
+  token,
+  user: {
+    idUser: usuario.idUser,
+    username: usuario.username,
+    role: usuario.role
+  }
+});
+
   } catch (e) {
     console.error(e); 
     const error = e as Error;
@@ -205,7 +214,7 @@ router.get("/exists/:email", async (req:Request, res:Response) => {
     const usuario = await Users.findOne({ where: { email } }) as unknown as UserAttributes;
 
     if (usuario) {
-      return res.json({ existe: true, id: usuario.id, nombre: usuario.nombre,  eliminado: !!usuario.deletedAt });
+      return res.json({ existe: true, id: usuario.idUser, nombre: usuario.nombre,  eliminado: !!usuario.deletedAt });
     } else {
       return res.json({ existe: false });
     }
