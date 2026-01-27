@@ -62,7 +62,6 @@ export const loginUser = async (req:Request, res:Response) => {
     );
 
     res.json({
-  mensaje: "Login exitoso",
   token,
   user: {
     idUser: usuario.idUser,
@@ -126,21 +125,23 @@ export const createUser = async (req:Request, res:Response) => {
       username: req.body.username,
       email: req.body.email,
       clave: hashed,
-      role: req.body.role || "user", // por defecto 'user'
+      role: "user",
       confirmation_token: email_token,
       confirmation_ok: false
-    })  as unknown as UserAttributes;;
+    })  as unknown as UserAttributes;
 
     sendConfirmationLink({
       to: req.body.email,
     },email_token)
 
-    res.status(201).json({
-      username: usuario.username,
-      email: usuario.email,
-      createdAt: usuario.createdAt,
-      updatedAt: usuario.updatedAt,
-    })
+res.status(201).json({
+  token,
+  user: {
+    idUser: usuario.idUser,
+    username: usuario.username,
+    role: usuario.role,
+  },
+});
   } catch (e) {
     console.error(e);
     const error = e as Error;

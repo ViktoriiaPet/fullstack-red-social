@@ -55,4 +55,6 @@ export const db = {
     //Settings: Settings(sequelize)
 };
 
+db.Comments.belongsTo(db.Users, { foreignKey: "userId", as: "user" });
+
 export default db

@@ -35,6 +35,7 @@ export default (sequelize: Sequelize) => {
     "Users",
     {
       idUser: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+      role: {type: DataTypes.STRING, allowNull: false,defaultValue: "user"},
       UUID: { type: DataTypes.STRING(50), allowNull: false },
       username: { type: DataTypes.STRING(20), allowNull: false },
       name: { type: DataTypes.STRING(50), allowNull: true },

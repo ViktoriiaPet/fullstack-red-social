@@ -10,7 +10,12 @@ export const getAllComments = async (req:Request, res:Response) => {
     const includeDeleted = req.query.includeDeleted === "true";
 
     const comments = await Comments.findAll({
-      paranoid: !includeDeleted
+      paranoid: !includeDeleted,
+      include: [{
+        model: db.Users,
+        as: "user",
+        attributes: ["idUser", "username", "role"]
+      }]
     });
 
     res.json(comments);
@@ -23,7 +28,13 @@ export const getAllComments = async (req:Request, res:Response) => {
 // Obtener un comentario por ID
 export const getCommentById = async (req:Request, res:Response) => {
   try {
-    const comment = await Comments.findByPk(req.params.idComment);
+    const comment = await Comments.findByPk(req.params.idComment,{
+      include: [{
+        model: db.Users,
+        as: "user",
+        attributes: ["idUser", "username", "role"]
+      }]
+    });
 
     if (!comment) {
       return res.status(404).json({ error: "Comment not found" });
