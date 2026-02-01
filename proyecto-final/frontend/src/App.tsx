@@ -4,8 +4,7 @@ import { ThemeContext } from "./contexts/ThemeContext"
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import HomePage from "./pages/HomePage"
-import LoginPage from "./pages/LoginPage"
-import RegisterPage from "./pages/RegisterPage"
+
 import EventPage from "./pages/EventPage"
 
 import CreateEventPage from "./pages/CreateEventPage"
@@ -22,6 +21,8 @@ import PrivacidadPage from "./pages/PrivacidadPage"
 import CookiesPage from "./pages/CookiesPage"
 import CookieConsent from "./components/CookieConsent"
 import Footer from "./components/Footer"
+import LoginPage from "./pages/LoginPage"
+import RegisterPage from "./pages/RegisterPage"
 
 function App() {
   const { theme } = useContext(ThemeContext)

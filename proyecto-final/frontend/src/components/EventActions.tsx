@@ -14,7 +14,7 @@ function EventActions({ likes, commentsCount, onShare, onSave }: EventActionsPro
     <div className="flex justify-around my-3 text-textPrimary">
       {/* Likes */}
       <div className="flex items-center cursor-pointer gap-2">
-        <span className="text-red-500 -mt-1">
+        <span className="text-error -mt-1">
           <FaHeart />
         </span>
         <span>{likes}</span>
