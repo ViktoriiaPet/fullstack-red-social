@@ -130,12 +130,23 @@ export const createUser = async (req:Request, res:Response) => {
       confirmation_ok: false
     })  as unknown as UserAttributes;
 
+    const jwtSecret = process.env.JWT_SECRET || "default_secret";
+if (!jwtSecret) {
+  return res.status(500).json({ error: "JWT secret missing" });
+}
+
+const tokenJwt = jwt.sign(
+  { idUser: usuario.idUser, username: usuario.username, role: usuario.role },
+  jwtSecret,
+  { expiresIn: "1h" }
+);
+
     sendConfirmationLink({
       to: req.body.email,
     },email_token)
 
 res.status(201).json({
-  token,
+  token: tokenJwt,
   user: {
     idUser: usuario.idUser,
     username: usuario.username,
